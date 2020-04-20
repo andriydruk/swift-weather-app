@@ -1,0 +1,117 @@
+disabled_rules:
+ - identifier_name #short vars
+ - force_cast  #exclude tests, shoule be enabled #TODO
+ - force_try #exclude tests
+ - type_name
+ - type_body_length
+ - statement_position #}else{
+ - extension_access_modifier #not bad  #TODO
+ - file_header #check details
+ - attributes #not bad #TODO
+ - nesting #?
+ - todo #todo
+ - file_length
+ - for_where #modern swift #TODO
+ - syntactic_sugar #modern swift #TODO
+ - function_body_length #short funcs not bad #TODO - 70
+ - trailing_whitespace #xcode default
+ # - vertical_parameter_alignment_on_call #strange in swift
+ - cyclomatic_complexity #shoule be enabled  #TODO2
+ - pattern_matching_keywords #hz
+ - override_in_extension #hz
+ - unused_closure_parameter #i think it looks better with names
+ - trailing_comma
+ - large_tuple #looks good for me
+ 
+ - compiler_protocol_init #TODO
+ - weak_delegate #TODO
+ - class_delegate_protocol #TODO
+ - redundant_nil_coalescing #intruduces bugs
+ 
+ - function_parameter_count #?
+ # - closure_parameter_position
+ - multiple_closures_with_trailing_closure
+ - is_disjoint #?
+ - contains_over_first_not_nil #maybe
+ - no_fallthrough_only #?
+ - notification_center_detachment
+ - redundant_string_enum_value
+opt_in_rules:
+#  - array_init
+  - attributes
+  - closure_end_indentation
+  - closure_spacing
+  - contains_over_first_not_nil
+  # - empty_count #TODO2
+  - explicit_init
+  - extension_access_modifier
+  - file_header
+  # - file_name #not bad
+  - first_where
+  - joined_default_parameter
+  - let_var_whitespace
+  - literal_expression_end_indentation
+  - nimble_operator
+  - number_separator
+  - object_literal
+  - operator_usage_whitespace
+  - overridden_super_call
+  - override_in_extension
+  - pattern_matching_keywords
+  - private_action
+  - private_outlet
+  - prohibited_super_call
+  - quick_discouraged_call
+  - quick_discouraged_focused_test
+  - quick_discouraged_pending_test
+  - redundant_nil_coalescing
+  - single_test_class
+  - sorted_first_last
+  - sorted_imports
+  - unneeded_parentheses_in_closure_argument
+#  - vertical_parameter_alignment_on_call
+  # - yoda_condition
+  - brackets_statment
+  - closure_inner_space
+  - brackets_space
+excluded:
+ - Pods
+ - .build
+
+type_name:
+  min_length: 1 # only warning
+  max_length: # warning and error
+    warning: 40
+    error: 50
+  excluded: iPhone # excluded via string
+identifier_name:
+  min_length: # only min_length
+    error: 1 # only error
+  excluded: # excluded via string array
+    - id
+    - URL
+    - GlobalAPIKey
+line_length: 1000 #160
+number_separator:
+  minimum_length: 5
+custom_rules:
+  brackets_statment:
+   name: Brackets Statment
+   message: statments after } shoule be started from new line
+   regex: \}[ ]*(if|else|catch)
+   severity: error
+  brackets_space:
+    name: Block Opening
+    message: shoule be whitespace after {
+    regex: \{(?:\(|\w)
+    severity: error
+    match_kinds: # SyntaxKinds to match. optional.
+         - parameter
+         - identifier
+  closure_inner_space:
+   name: Closure Inner Space
+   message: closures should have space after {
+   regex: \{\w+(?:, \w+)* in\b
+   severity: warning
+   
+   #TODO todo should have tickect refrence

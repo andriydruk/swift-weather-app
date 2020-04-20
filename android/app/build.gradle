@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.readdle.android.swift'
+apply plugin: 'kotlin-kapt'
+
+swift {
+    useKapt true
+    cleanEnabled true
+    debug {
+        abiFilters("arm64-v8a")
+        extraBuildFlags("-Xswiftc", "-DDEBUG")
+    }
+}
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        applicationId "com.readdle.weather"
+        minSdkVersion 24
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["com.readdle.codegen.package": """{
+                   "moduleName": "WeatherCoreGenerated",
+                   "importPackages": ["AnyCodable", "JavaCoder", "WeatherCore"]
+               }
+               """
+                ]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += '-Xuse-experimental=kotlin.ExperimentalUnsignedTypes'
+    }
+}
+
+dependencies {
+    kapt "com.readdle.swift.java.codegen:compiler:0.9.0"
+    implementation "com.readdle.swift.java.codegen:annotations:0.9.0"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
+    implementation "androidx.activity:activity:1.1.0"
+    implementation "androidx.activity:activity-ktx:1.1.0"
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation 'androidx.core:core-ktx:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    implementation 'com.google.android.material:material:1.1.0'
+}

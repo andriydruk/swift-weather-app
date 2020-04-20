@@ -1,0 +1,52 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "CJavaVM",
+        "repositoryURL": "https://github.com/readdle/CJavaVM.git",
+        "state": {
+          "branch": null,
+          "revision": "e4b172f024fffb30a157a9105390408f03a6de5f",
+          "version": "2.4.1"
+        }
+      },
+      {
+        "package": "java_swift",
+        "repositoryURL": "https://github.com/readdle/java_swift.git",
+        "state": {
+          "branch": null,
+          "revision": "30860b7664e0cffd11dbd15bc5e70952896207a2",
+          "version": "2.1.9"
+        }
+      },
+      {
+        "package": "AnyCodable",
+        "repositoryURL": "https://github.com/readdle/swift-anycodable.git",
+        "state": {
+          "branch": null,
+          "revision": "9163d43ad317d938629592bbae798a95a3a0a4cf",
+          "version": "1.0.3"
+        }
+      },
+      {
+        "package": "Java",
+        "repositoryURL": "https://github.com/readdle/swift-java.git",
+        "state": {
+          "branch": null,
+          "revision": "38459fc901d2ecd9655994459a6f099537a2cb98",
+          "version": "0.2.4"
+        }
+      },
+      {
+        "package": "JavaCoder",
+        "repositoryURL": "https://github.com/readdle/swift-java-coder.git",
+        "state": {
+          "branch": "dev/kotlin-support",
+          "revision": "e4b105dc830e59a116ec48216061b478aaefddff",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}
