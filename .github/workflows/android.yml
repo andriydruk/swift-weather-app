@@ -41,6 +41,6 @@ jobs:
         export PATH=$ANDROID_NDK_HOME:$PATH;
         export PATH=$SWIFT_ANDROID_HOME/bin:$SWIFT_ANDROID_HOME/build-tools/current:$PATH;
         adb wait-for-device;
-        cd android/app/src/main/swift
-        sourcery
+        cd android/app/src/main/swift;
+        sourcery;
         swift-test
