@@ -2,7 +2,6 @@ package com.readdle.weather.core
 
 import com.readdle.codegen.anotation.SwiftCallbackFunc
 import com.readdle.codegen.anotation.SwiftDelegate
-import com.readdle.codegen.anotation.Unsigned
 
 @SwiftDelegate(protocols = ["WeatherRepositoryDelegate"])
 interface WeatherRepositoryDelegateAndroid {

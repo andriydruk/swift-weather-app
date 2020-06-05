@@ -1,0 +1,32 @@
+import XCTest
+{{ argument.testimports }}
+
+
+
+{% for type in types.classes|based:"XCTestCase" %}
+{% if not type.annotations.disableTests and not type.annotations.notUnitTests %}extension {{ type.name }} {
+  static var allTests = [
+{% if argument.test_type == "unit-testing" %}
+	{% for method in type.methods %}{% if not method.annotations.disableTest and not method.annotations.notUnitTest and method.parameters.count == 0 and method.shortName|hasPrefix:"test" %}  ("{{ method.shortName }}", {{ method.shortName }}),
+  	{% endif %}{% endfor %}
+{% else %}
+	{% for method in type.methods %}{% if not method.annotations.disableTest and method.parameters.count == 0 and method.shortName|hasPrefix:"test" %}  ("{{ method.shortName }}", {{ method.shortName }}),
+  	{% endif %}{% endfor %}
+{% endif %}
+	]
+
+}
+
+{% endif %}{% endfor %}
+
+XCTMain([
+{% for type in types.classes|based:"XCTestCase" %}
+{% if not type.annotations.disableTests and not type.annotations.notUnitTests %} 
+	{% if argument.test_type == "unit-testing" %}
+		{% if not type.annotations.notUnitTest %}
+			testCase({{ type.name }}.allTests),
+		{% endif %}
+	{% else %}
+		testCase({{ type.name }}.allTests),
+	{% endif %}{% endif %}
+{% endfor %}])

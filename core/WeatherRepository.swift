@@ -20,9 +20,15 @@ public class WeatherRepository {
 
     private let dbQueue = OperationQueue()
 
-    public init(basePath: String, delegate: WeatherRepositoryDelegate) {
-        self.provider = MetaWeatherProvider(basePath: basePath)
-        self.db = JSONStorage(basePath: basePath)
+    public convenience init(basePath: String, delegate: WeatherRepositoryDelegate) {
+        self.init(db: JSONStorage(basePath: basePath),
+                provider: MetaWeatherProvider(basePath: basePath),
+                delegate: delegate)
+    }
+
+    init(db: WeatherDatabase, provider: WeatherProvider, delegate: WeatherRepositoryDelegate) {
+        self.db = db
+        self.provider = provider
         self.delegate = delegate
 
         self.dbQueue.maxConcurrentOperationCount = 1
