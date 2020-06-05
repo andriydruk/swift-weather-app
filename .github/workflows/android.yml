@@ -30,7 +30,7 @@ jobs:
     - name: Create Android Emulator
       run: $ANDROID_HOME/tools/bin/avdmanager create avd -n ci-test -k "system-images;android-29;google_apis;x86_64" -d "pixel"
     - name: Start Android Emulator
-      run: $ANDROID_HOME/emulator/emulator-headless -avd ci-test -noaudio > /dev/null &
+      run: $ANDROID_HOME/emulator/emulator -no-window -avd ci-test -noaudio > /dev/null &
     - name: Install sourcery
       run: brew install sourcery
     - name: Run connected android tests
