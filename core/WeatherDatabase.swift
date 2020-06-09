@@ -12,4 +12,6 @@ protocol WeatherDatabase {
 
     func removeLocation(_ location: Location)
 
+    func clearDB()
+
 }

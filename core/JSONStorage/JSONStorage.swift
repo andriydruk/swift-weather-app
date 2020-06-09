@@ -43,6 +43,19 @@ class JSONStorage: WeatherDatabase {
         saveOnDisk()
     }
 
+    func clearDB() {
+        let fileURL = URL(fileURLWithPath: basePath).appendingPathComponent(JSONStorage.FILENAME)
+        if FileManager.default.fileExists(atPath: fileURL.path) {
+            do {
+                try FileManager.default.removeItem(at: fileURL)
+                locationsCache = nil
+            }
+            catch {
+                NSLog("Can't remove file \(fileURL), error: \(error.localizedDescription)")
+            }
+        }
+    }
+
     private func loadFromDisk() {
         let fileURL = URL(fileURLWithPath: basePath).appendingPathComponent(JSONStorage.FILENAME)
         if FileManager.default.fileExists(atPath: fileURL.path) {

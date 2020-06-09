@@ -59,6 +59,7 @@ let package = Package(
         .package(url: "https://github.com/readdle/swift-anycodable.git", .upToNextMinor(from: "1.0.3")),
     ],
     targets: addGenerated([
-        .target(name: packageName, dependencies: ["AnyCodable", "java_swift", "JavaCoder"])
+        .target(name: packageName, dependencies: ["AnyCodable", "java_swift", "JavaCoder"]),
+        .testTarget(name: "WeatherCoreTests", dependencies: ["WeatherCore"], path: "Tests")
     ])
 )
