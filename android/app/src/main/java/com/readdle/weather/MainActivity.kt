@@ -17,7 +17,9 @@ import com.readdle.weather.adapters.SearchLocationAdapter
 import com.readdle.weather.adapters.WeatherLocationAdapter
 import com.readdle.weather.core.Location
 import com.readdle.weather.core.Weather
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
     private lateinit var recycler: RecyclerView

@@ -26,8 +26,10 @@ class WeatherRepository private constructor() {
     companion object {
 
         @JvmStatic
-        @SwiftFunc("init(basePath:delegate:)")
-        external fun init(basePath: String, delegate: WeatherRepositoryDelegateAndroid): WeatherRepository
+        @SwiftFunc("init(db:provider:delegate:)")
+        external fun init(db: JSONStorage,
+                          provider: MetaWeatherProvider,
+                          delegate: WeatherRepositoryDelegateAndroid): WeatherRepository
     }
 
 }

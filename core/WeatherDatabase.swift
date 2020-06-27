@@ -4,7 +4,7 @@
 
 import Foundation
 
-protocol WeatherDatabase {
+public protocol WeatherDatabase {
 
     func loadLocations() -> [Location]
 

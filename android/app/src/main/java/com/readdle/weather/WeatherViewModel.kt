@@ -1,21 +1,16 @@
 package com.readdle.weather
 
-import android.app.Application
-import android.content.Context
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.readdle.codegen.anotation.Unsigned
-import com.readdle.weather.core.Location
-import com.readdle.weather.core.Weather
-import com.readdle.weather.core.WeatherRepository
-import com.readdle.weather.core.WeatherRepositoryDelegateAndroid
+import com.readdle.weather.core.*
 
+class WeatherViewModel @ViewModelInject constructor(
+    db: JSONStorage,
+    provider: MetaWeatherProvider) : ViewModel(), WeatherRepositoryDelegateAndroid {
 
-class WeatherViewModel(app: Application) : AndroidViewModel(app), WeatherRepositoryDelegateAndroid {
-
-    private val weatherRepository = WeatherRepository.init(app.dataDir.absolutePath, this)
+    private val weatherRepository = WeatherRepository.init(db, provider, this)
 
     private val errorDescription = MutableLiveData<String>()
     private val searchSuggestion = MutableLiveData<List<Location>>()

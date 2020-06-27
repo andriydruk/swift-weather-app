@@ -4,21 +4,18 @@
 
 import Foundation
 
-class MetaWeatherProvider: WeatherProvider {
+public class MetaWeatherProvider: WeatherProvider {
 
     let sessionConfig = URLSessionConfiguration.default
     let session: URLSession
 
     var searchDataTask: URLSessionDataTask?
 
-    init(basePath: String) {
-        // Setup SSL
-        let caPath = basePath + "/cacert.pem"
-        setenv("URLSessionCertificateAuthorityInfoFile", caPath, 1)
+    public init() {
         self.session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
     }
 
-    func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
+    public func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
         searchDataTask?.cancel()
         guard let query = query, query.count > 0 else {
             completionBlock([], nil)
@@ -45,7 +42,7 @@ class MetaWeatherProvider: WeatherProvider {
         }
     }
 
-    func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
+    public func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
         if let url = URL(string: "https://www.metaweather.com/api/location/\(woeId)") {
             let task = session.dataTask(with: url) { data, response, error in
                 do {
