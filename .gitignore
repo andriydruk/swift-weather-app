@@ -16,4 +16,5 @@ android/.idea
 android/app/src/main/jniLibs
 android/app/src/main/swift/.build
 android/app/src/main/swift/.idea
-android/app/src/main/swift/WeatherCore.xcodeproj
+core/.build
+android/app/src/main/swift/WeatherCoreBridge.xcodeproj

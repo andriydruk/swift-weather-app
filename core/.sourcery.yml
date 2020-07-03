@@ -1,0 +1,9 @@
+# This is config file for sourcery, just run `sourcery` in this folder
+sources:
+  - Tests
+templates:
+  - .sourcery.LinuxMain.stencil
+output:
+  LinuxMain.swift
+args:
+  testimports: '@testable import WeatherCoreTests'
