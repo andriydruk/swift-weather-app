@@ -1,13 +1,19 @@
 import XCTest
 @testable import WeatherCore
 
+#if os(Android)
+let temporaryDirectory = "/data/local/tmp"
+#else
+let temporaryDirectory = NSTemporaryDirectory()
+#endif
+
 class WeatherDatabaseTest: XCTestCase {
 
     private var database: WeatherDatabase!
 
     override func setUp() {
         super.setUp()
-        database = JSONStorage(basePath: "/data/local/tmp")
+        database = JSONStorage(basePath: temporaryDirectory)
         database.clearDB()
     }
 

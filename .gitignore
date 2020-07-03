@@ -18,3 +18,7 @@ android/app/src/main/swift/.build
 android/app/src/main/swift/.idea
 core/.build
 android/app/src/main/swift/WeatherCoreBridge.xcodeproj
+core/.swiftpm/xcode/xcuserdata
+core/.swiftpm/xcode/package.xcworkspace/xcuserdata
+apple/Weather.xcodeproj/project.xcworkspace/xcuserdata
+apple/Weather.xcodeproj/xcuserdata
