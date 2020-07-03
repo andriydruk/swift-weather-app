@@ -6,25 +6,25 @@ import Foundation
 
 // Fake DB with JSON persistence
 // TODO: replace with SQLite
-class JSONStorage: WeatherDatabase {
+public class JSONStorage: WeatherDatabase {
 
     private static let FILENAME = "db.json"
 
     private var locationsCache: [Location]?
     private var basePath: String
 
-    init(basePath: String) {
+    public init(basePath: String) {
         self.basePath = basePath
     }
 
-    func loadLocations() -> [Location] {
+    public func loadLocations() -> [Location] {
         if locationsCache == nil {
             loadFromDisk()
         }
         return locationsCache ?? []
     }
 
-    func addLocation(_ location: Location) {
+    public func addLocation(_ location: Location) {
         if locationsCache == nil {
             loadFromDisk()
         }
@@ -35,7 +35,7 @@ class JSONStorage: WeatherDatabase {
         }
     }
 
-    func removeLocation(_ location: Location) {
+    public func removeLocation(_ location: Location) {
         if locationsCache == nil {
             loadFromDisk()
         }
@@ -43,7 +43,7 @@ class JSONStorage: WeatherDatabase {
         saveOnDisk()
     }
 
-    func clearDB() {
+    public func clearDB() {
         let fileURL = URL(fileURLWithPath: basePath).appendingPathComponent(JSONStorage.FILENAME)
         if FileManager.default.fileExists(atPath: fileURL.path) {
             do {
