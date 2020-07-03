@@ -144,7 +144,11 @@ class WeatherRepositoryTest: XCTestCase {
         }
 
         func onError(errorDescription: String) {
+            #if os(Android)
             XCTAssertEqual(errorDescription, "The operation could not be completed. ( error 0.)")
+            #else
+            XCTAssertEqual(errorDescription, "The operation couldn’t be completed. ( error 0.)")
+            #endif
             errorExpectation?.fulfill()
         }
     }

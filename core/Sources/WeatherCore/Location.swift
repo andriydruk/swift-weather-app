@@ -5,8 +5,8 @@
 import Foundation
 
 public struct Location: Codable, Hashable {
-    let woeId: Int64
-    let title: String
-    let latitude: Float
-    let longitude: Float
+    public let woeId: Int64
+    public let title: String
+    public let latitude: Float
+    public let longitude: Float
 }

@@ -5,15 +5,15 @@
 import Foundation
 
 public struct Weather: Codable, Hashable {
-    let state: WeatherState
-    let date: Date
-    let minTemp: Float
-    let maxTemp: Float
-    let temp: Float
-    let windSpeed: Float
-    let windDirection: Float
-    let airPressure: Float
-    let humidity: Float
-    let visibility: Float
-    let predictability: Float
+    public let state: WeatherState
+    public let date: Date
+    public let minTemp: Float
+    public let maxTemp: Float
+    public let temp: Float
+    public let windSpeed: Float
+    public let windDirection: Float
+    public let airPressure: Float
+    public let humidity: Float
+    public let visibility: Float
+    public let predictability: Float
 }
