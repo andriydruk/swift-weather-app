@@ -11,7 +11,7 @@ class WeatherApp: Application() {
 
     override fun onCreate() {
         super.onCreate()
-        System.loadLibrary("WeatherCore")
+        System.loadLibrary("WeatherCoreBridge")
         JavaSwift.init()
         assets.copyAssetsIfNeeded("cacert.pem", dataDir.absolutePath)
         SSLHelper.setupCert(dataDir.absolutePath)

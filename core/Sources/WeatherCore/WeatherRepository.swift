@@ -3,7 +3,6 @@
 //
 
 import Foundation
-import JavaCoder
 
 public protocol WeatherRepositoryDelegate {
     func onSearchSuggestionChanged(locations: [Location])

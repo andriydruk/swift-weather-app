@@ -30,8 +30,8 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments += ["com.readdle.codegen.package": """{
-                   "moduleName": "WeatherCoreGenerated",
-                   "importPackages": ["AnyCodable", "JavaCoder", "WeatherCore"]
+                   "moduleName": "WeatherCoreBridgeGenerated",
+                   "importPackages": ["AnyCodable", "JavaCoder", "WeatherCore", "WeatherCoreBridge"]
                }
                """
                 ]
