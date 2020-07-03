@@ -1,4 +1,4 @@
-# Swift Weather App ![Android](https://github.com/andriydruk/swift-weather-app/workflows/Android/badge.svg)
+# Swift Weather App ![AndroidCore](https://github.com/andriydruk/swift-weather-app/workflows/AndroidCore/badge.svg) ![MacCore](https://github.com/andriydruk/swift-weather-app/workflows/MacCore/badge.svg)
 Cross-platform Swift application 
 
 ![GitHub Logo](./doc/device-2020-04-21-000209.png)
