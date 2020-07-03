@@ -1,0 +1,14 @@
+name: MacCore
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: macOS-latest
+    
+    steps:
+    - uses: actions/checkout@v1
+    - name: Run swift tests
+      run: cd core;
+        swift test
