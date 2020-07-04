@@ -22,3 +22,5 @@ core/.swiftpm/xcode/xcuserdata
 core/.swiftpm/xcode/package.xcworkspace/xcuserdata
 apple/Weather.xcodeproj/project.xcworkspace/xcuserdata
 apple/Weather.xcodeproj/xcuserdata
+*.xcuserstate
+*.xcbkptlist
