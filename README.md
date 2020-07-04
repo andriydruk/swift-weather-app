@@ -29,14 +29,10 @@ For building an Android application you need [Readdle's Swift Android Toolchain]
 After a successful setup, you can clone this repo and build it with Android Studio as any other android project. 
 
 
-## How to build [iOS]
+## How to build [iOS/MacOS]
 
-In progress...
+For building an iOS application you need [Xcode 12](https://developer.apple.com/services-account/download?path=/Developer_Tools/Xcode_12_beta/Xcode_12_beta.xip). Minimal target version of operation systems is iOS 14 and MacOS 11.
 
-
-## How to build [macOS]
-
-In progress...
 
 ## How to build [Windows]
 
