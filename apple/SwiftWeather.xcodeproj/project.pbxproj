@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,6 +16,8 @@
 		09B25AF324B0C4A4004DFBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B25AC824B0C4A4004DFBA0 /* Assets.xcassets */; };
 		09B25AF424B0C4A4004DFBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B25AC824B0C4A4004DFBA0 /* Assets.xcassets */; };
 		09B25B0424B0C598004DFBA0 /* core in Resources */ = {isa = PBXBuildFile; fileRef = 09B25B0324B0C598004DFBA0 /* core */; };
+		849CD2B024BF72580096E6E5 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 849CD2AF24BF72580096E6E5 /* WeatherCore */; };
+		849CD2B224BF725C0096E6E5 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 849CD2B124BF725C0096E6E5 /* WeatherCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -58,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849CD2B224BF725C0096E6E5 /* WeatherCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -65,6 +68,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				849CD2B024BF72580096E6E5 /* WeatherCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +99,7 @@
 				09B25AE024B0C4A4004DFBA0 /* Tests iOS */,
 				09B25AEB24B0C4A4004DFBA0 /* Tests macOS */,
 				09B25ACE24B0C4A4004DFBA0 /* Products */,
+				849CD2AE24BF72580096E6E5 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -154,6 +159,13 @@
 			path = "Tests macOS";
 			sourceTree = "<group>";
 		};
+		849CD2AE24BF72580096E6E5 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -168,8 +180,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				849CD2AB24BF724C0096E6E5 /* PBXTargetDependency */,
 			);
 			name = iOS;
+			packageProductDependencies = (
+				849CD2B124BF725C0096E6E5 /* WeatherCore */,
+			);
 			productName = iOS;
 			productReference = 09B25ACD24B0C4A4004DFBA0 /* SwiftWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -185,8 +201,12 @@
 			buildRules = (
 			);
 			dependencies = (
+				849CD2AD24BF72520096E6E5 /* PBXTargetDependency */,
 			);
 			name = macOS;
+			packageProductDependencies = (
+				849CD2AF24BF72580096E6E5 /* WeatherCore */,
+			);
 			productName = macOS;
 			productReference = 09B25AD524B0C4A4004DFBA0 /* SwiftWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -354,6 +374,14 @@
 			isa = PBXTargetDependency;
 			target = 09B25AD424B0C4A4004DFBA0 /* macOS */;
 			targetProxy = 09B25AE924B0C4A4004DFBA0 /* PBXContainerItemProxy */;
+		};
+		849CD2AB24BF724C0096E6E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 849CD2AA24BF724C0096E6E5 /* WeatherCore */;
+		};
+		849CD2AD24BF72520096E6E5 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			productRef = 849CD2AC24BF72520096E6E5 /* WeatherCore */;
 		};
 /* End PBXTargetDependency section */
 
@@ -690,6 +718,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		849CD2AA24BF724C0096E6E5 /* WeatherCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WeatherCore;
+		};
+		849CD2AC24BF72520096E6E5 /* WeatherCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WeatherCore;
+		};
+		849CD2AF24BF72580096E6E5 /* WeatherCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WeatherCore;
+		};
+		849CD2B124BF725C0096E6E5 /* WeatherCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = WeatherCore;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 09B25AC124B0C4A3004DFBA0 /* Project object */;
 }
