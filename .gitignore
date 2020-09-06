@@ -27,3 +27,6 @@ apple/Weather.xcodeproj/xcuserdata
 
 apple/SwiftWeather.xcodeproj/xcuserdata/andrius.xcuserdatad/xcschemes/xcschememanagement.plist
 apple/SwiftWeather.xcodeproj/xcuserdata
+core/WeatherCore.xcodeproj/xcshareddata
+core/WeatherCore.xcodeproj/project.xcworkspace/xcshareddata
+Package.resolved

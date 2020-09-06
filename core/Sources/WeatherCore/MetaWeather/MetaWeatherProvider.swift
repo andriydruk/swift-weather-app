@@ -4,18 +4,18 @@
 
 import Foundation
 
-public class MetaWeatherProvider: WeatherProvider {
+class MetaWeatherProvider: WeatherProvider {
 
     let sessionConfig = URLSessionConfiguration.default
     let session: URLSession
 
     var searchDataTask: URLSessionDataTask?
 
-    public init() {
+    init() {
         self.session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
     }
 
-    public func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
+    func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
         searchDataTask?.cancel()
         guard let query = query, query.count > 0 else {
             completionBlock([], nil)
@@ -42,7 +42,7 @@ public class MetaWeatherProvider: WeatherProvider {
         }
     }
 
-    public func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
+    func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
         if let url = URL(string: "https://www.metaweather.com/api/location/\(woeId)") {
             let task = session.dataTask(with: url) { data, response, error in
                 do {

@@ -1,22 +1,18 @@
 package com.readdle.weather
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
-import androidx.core.view.MenuItemCompat
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import com.readdle.weather.adapters.SearchLocationAdapter
 import com.readdle.weather.adapters.WeatherLocationAdapter
 import com.readdle.weather.core.Location
-import com.readdle.weather.core.Weather
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -26,14 +22,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var weatherLocationAdapter: WeatherLocationAdapter
     private lateinit var searchLocationAdapter: SearchLocationAdapter
 
-    private val model: WeatherViewModel by viewModels()
+    private val model: MainViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         val viewManager = LinearLayoutManager(this)
-        weatherLocationAdapter = WeatherLocationAdapter(emptyList(), emptyMap()) {
+        weatherLocationAdapter = WeatherLocationAdapter(emptyList()) {
             removeLocation(it)
         }
 
@@ -49,16 +45,13 @@ class MainActivity : AppCompatActivity() {
             adapter = weatherLocationAdapter
         }
 
-        model.getSavedLocations().observe(this, Observer<List<Location>> {
-            weatherLocationAdapter.swapLocations(it)
+        model.getWeatherLiveData().observe(this, {
+            weatherLocationAdapter.swapWeathers(it)
         })
-        model.getWeatherMap().observe(this, Observer<Map<Long, Weather>> {
-            weatherLocationAdapter.swapWeatherMap(it)
-        })
-        model.getSearchSuggestion().observe(this, Observer<List<Location>> {
+        model.getSearchSuggestionLiveData().observe(this, {
             searchLocationAdapter.swapLocations(it)
         })
-        model.getErrorDescription().observe(this, Observer<String> {
+        model.getErrorDescriptionLiveData().observe(this, {
             Snackbar.make(recycler, it, Snackbar.LENGTH_SHORT).show()
         })
     }

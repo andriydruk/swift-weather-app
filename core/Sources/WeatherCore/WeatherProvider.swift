@@ -4,7 +4,7 @@
 
 import Foundation
 
-public protocol WeatherProvider {
+protocol WeatherProvider {
 
     func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void)
 

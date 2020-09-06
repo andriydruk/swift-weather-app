@@ -6,7 +6,7 @@ import Foundation
 
 // Fake DB with JSON persistence
 // TODO: replace with SQLite
-public class JSONStorage: WeatherDatabase {
+class JSONStorage: WeatherDatabase {
 
     private static let FILENAME = "db.json"
 

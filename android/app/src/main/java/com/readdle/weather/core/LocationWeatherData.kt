@@ -8,9 +8,7 @@ import com.readdle.codegen.anotation.SwiftValue
 import kotlinx.android.parcel.Parcelize
 
 @SwiftValue @Parcelize
-data class Location(
-        var woeId: Long = 0,
-		var title: String = "",
-		var latitude: Float = 0.0f,
-		var longitude: Float = 0.0f
+data class LocationWeatherData(
+        var location: Location = Location(),
+		var weather: Weather? = null
 ): Parcelable

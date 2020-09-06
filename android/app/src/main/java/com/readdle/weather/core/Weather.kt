@@ -1,19 +1,24 @@
-package com.readdle.weather.core
+// Generated using JavaSwift codegen by Sourcery
+// DO NOT EDIT
 
+package com.readdle.weather.core;
+
+import android.os.Parcelable
 import com.readdle.codegen.anotation.SwiftValue
-import java.util.*
+import kotlinx.android.parcel.Parcelize
+import java.util.Date
 
-@SwiftValue
+@SwiftValue @Parcelize
 data class Weather(
-    val state: WeatherState = WeatherState.NONE,
-    val date: Date = Date(),
-    val minTemp: Float = Float.NaN,
-    val maxTemp: Float = Float.NaN,
-    val temp: Float = Float.NaN,
-    val windSpeed: Float = Float.NaN,
-    val windDirection: Float = Float.NaN,
-    val airPressure: Float = Float.NaN,
-    val humidity: Float = Float.NaN,
-    val visibility: Float = Float.NaN,
-    val predictability: Float = Float.NaN
-)
+        var state: WeatherState = WeatherState.NONE,
+		var date: Date = Date(),
+		var minTemp: Float = 0.0f,
+		var maxTemp: Float = 0.0f,
+		var temp: Float = 0.0f,
+		var windSpeed: Float = 0.0f,
+		var windDirection: Float = 0.0f,
+		var airPressure: Float = 0.0f,
+		var humidity: Float = 0.0f,
+		var visibility: Float = 0.0f,
+		var predictability: Float = 0.0f
+): Parcelable
