@@ -9,7 +9,12 @@ import SwiftUI
 import WeatherCore
 
 @main
-struct SwiftWeatherApp: App {
+struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate {
+
+    let container = WeatherCoreContainer(basePath: Bundle.main.bundlePath)
+    
+    var viewModel: LocationWeatherViewModel?
+    
     var body: some Scene {
         WindowGroup {
             ContentView()
@@ -17,16 +22,22 @@ struct SwiftWeatherApp: App {
     }
     
     init() {
-        // Example of WeatherCore usage
-        let provider = MetaWeatherProvider()
-        provider.searchLocations(query: "San") { locations, error in
-            if let error = error {
-                NSLog("Error: %s", error.localizedDescription)
-                return
-            }
-            locations?.forEach {
-                NSLog($0.title)
-            }
-        }
+        viewModel = container.getWeatherViewModel(delegate: self)
+    }
+    
+    func onSearchSuggestionChanged(locations: [Location]) {
+        
+    }
+    
+    func onSavedLocationChanged(locations: [Location]) {
+    
+    }
+    
+    func onWeatherStateChanged(state: [LocationWeatherData]) {
+        
+    }
+    
+    func onError(errorDescription: String) {
+        NSLog("Error: %s", errorDescription)
     }
 }

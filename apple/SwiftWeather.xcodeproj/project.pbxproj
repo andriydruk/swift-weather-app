@@ -15,9 +15,8 @@
 		09B25AF224B0C4A4004DFBA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09B25AC724B0C4A3004DFBA0 /* ContentView.swift */; };
 		09B25AF324B0C4A4004DFBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B25AC824B0C4A4004DFBA0 /* Assets.xcassets */; };
 		09B25AF424B0C4A4004DFBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B25AC824B0C4A4004DFBA0 /* Assets.xcassets */; };
-		09B25B0424B0C598004DFBA0 /* core in Resources */ = {isa = PBXBuildFile; fileRef = 09B25B0324B0C598004DFBA0 /* core */; };
-		849CD2B024BF72580096E6E5 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 849CD2AF24BF72580096E6E5 /* WeatherCore */; };
-		849CD2B224BF725C0096E6E5 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 849CD2B124BF725C0096E6E5 /* WeatherCore */; };
+		84E895AC24F10FB0000A82E6 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 84E895AB24F10FB0000A82E6 /* WeatherCore */; };
+		84E895AE24F10FBA000A82E6 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 84E895AD24F10FBA000A82E6 /* WeatherCore */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +51,7 @@
 		09B25AE824B0C4A4004DFBA0 /* Tests macOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests macOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		09B25AEC24B0C4A4004DFBA0 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		09B25AEE24B0C4A4004DFBA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		09B25B0324B0C598004DFBA0 /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../core; sourceTree = "<group>"; };
+		84E895A824F10D19000A82E6 /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../core; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849CD2B224BF725C0096E6E5 /* WeatherCore in Frameworks */,
+				84E895AE24F10FBA000A82E6 /* WeatherCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -68,7 +67,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				849CD2B024BF72580096E6E5 /* WeatherCore in Frameworks */,
+				84E895AC24F10FB0000A82E6 /* WeatherCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -92,7 +91,7 @@
 		09B25AC024B0C4A3004DFBA0 = {
 			isa = PBXGroup;
 			children = (
-				09B25B0324B0C598004DFBA0 /* core */,
+				84E895A824F10D19000A82E6 /* core */,
 				09B25AC524B0C4A3004DFBA0 /* Shared */,
 				09B25ACF24B0C4A4004DFBA0 /* iOS */,
 				09B25AD624B0C4A4004DFBA0 /* macOS */,
@@ -184,7 +183,7 @@
 			);
 			name = iOS;
 			packageProductDependencies = (
-				849CD2B124BF725C0096E6E5 /* WeatherCore */,
+				84E895AD24F10FBA000A82E6 /* WeatherCore */,
 			);
 			productName = iOS;
 			productReference = 09B25ACD24B0C4A4004DFBA0 /* SwiftWeather.app */;
@@ -201,11 +200,11 @@
 			buildRules = (
 			);
 			dependencies = (
-				849CD2AD24BF72520096E6E5 /* PBXTargetDependency */,
+				84E895AA24F10FA8000A82E6 /* PBXTargetDependency */,
 			);
 			name = macOS;
 			packageProductDependencies = (
-				849CD2AF24BF72580096E6E5 /* WeatherCore */,
+				84E895AB24F10FB0000A82E6 /* WeatherCore */,
 			);
 			productName = macOS;
 			productReference = 09B25AD524B0C4A4004DFBA0 /* SwiftWeather.app */;
@@ -299,7 +298,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09B25AF324B0C4A4004DFBA0 /* Assets.xcassets in Resources */,
-				09B25B0424B0C598004DFBA0 /* core in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,9 +377,9 @@
 			isa = PBXTargetDependency;
 			productRef = 849CD2AA24BF724C0096E6E5 /* WeatherCore */;
 		};
-		849CD2AD24BF72520096E6E5 /* PBXTargetDependency */ = {
+		84E895AA24F10FA8000A82E6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 849CD2AC24BF72520096E6E5 /* WeatherCore */;
+			productRef = 84E895A924F10FA8000A82E6 /* WeatherCore */;
 		};
 /* End PBXTargetDependency section */
 
@@ -546,6 +544,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_PREVIEWS = YES;
@@ -568,6 +567,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = macOS/macOS.entitlements;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				ENABLE_PREVIEWS = YES;
@@ -724,15 +724,15 @@
 			isa = XCSwiftPackageProductDependency;
 			productName = WeatherCore;
 		};
-		849CD2AC24BF72520096E6E5 /* WeatherCore */ = {
+		84E895A924F10FA8000A82E6 /* WeatherCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WeatherCore;
 		};
-		849CD2AF24BF72580096E6E5 /* WeatherCore */ = {
+		84E895AB24F10FB0000A82E6 /* WeatherCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WeatherCore;
 		};
-		849CD2B124BF725C0096E6E5 /* WeatherCore */ = {
+		84E895AD24F10FBA000A82E6 /* WeatherCore */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = WeatherCore;
 		};

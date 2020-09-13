@@ -9,6 +9,7 @@ let package = Package(
             targets:["WeatherCore"]
         )
     ],
+    dependencies: [],
     targets: [
         .target(name: "WeatherCore"),
         .testTarget(name: "WeatherCoreTests", dependencies: ["WeatherCore"]),

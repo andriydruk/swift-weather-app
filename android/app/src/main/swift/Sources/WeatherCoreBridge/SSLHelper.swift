@@ -3,6 +3,7 @@
 //
 
 import Foundation
+import WeatherCore
 
 public class SSLHelper {
 

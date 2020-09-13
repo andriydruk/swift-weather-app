@@ -10,12 +10,11 @@ import androidx.annotation.DrawableRes
 import androidx.recyclerview.widget.RecyclerView
 import com.readdle.weather.R
 import com.readdle.weather.core.Location
-import com.readdle.weather.core.Weather
+import com.readdle.weather.core.LocationWeatherData
 import com.readdle.weather.core.WeatherState
 import kotlin.math.round
 
-class WeatherLocationAdapter(private var locations: List<Location>,
-                             private var weatherMap: Map<Long, Weather>,
+class WeatherLocationAdapter(private var weathers: List<LocationWeatherData>,
                              private var onLongClickListener: (Location) -> Unit) :
     RecyclerView.Adapter<WeatherLocationAdapter.LocationViewHolder>() {
 
@@ -45,9 +44,10 @@ class WeatherLocationAdapter(private var locations: List<Location>,
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
-        val location = locations[position]
+
+        val location = weathers[position].location
         holder.titleText.text = location.title
-        val weather = weatherMap[location.woeId]
+        val weather = weathers[position].weather
         if (weather != null) {
             holder.weatherState.setImageResource(getDrawableForWeatherState(weather.state))
             holder.tempText.text = "${round(weather.temp).toInt()} °C"
@@ -66,15 +66,10 @@ class WeatherLocationAdapter(private var locations: List<Location>,
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = locations.size
+    override fun getItemCount() = weathers.size
 
-    fun swapLocations(locations: List<Location>) {
-        this.locations = locations
-        notifyDataSetChanged()
-    }
-
-    fun swapWeatherMap(weatherMap: Map<Long, Weather>) {
-        this.weatherMap = weatherMap
+    fun swapWeathers(weathers: List<LocationWeatherData>) {
+        this.weathers = weathers
         notifyDataSetChanged()
     }
 
@@ -86,8 +81,8 @@ class WeatherLocationAdapter(private var locations: List<Location>,
             WeatherState.SLEET -> R.drawable.ic_sl
             WeatherState.HAIL -> R.drawable.ic_h
             WeatherState.THUNDERSTORM -> R.drawable.ic_t
-            WeatherState.HEAVY -> R.drawable.ic_hr
-            WeatherState.LIGHT -> R.drawable.ic_lr
+            WeatherState.HEAVY_RAIN -> R.drawable.ic_hr
+            WeatherState.LIGHT_RAIN -> R.drawable.ic_lr
             WeatherState.SHOWERS -> R.drawable.ic_s
             WeatherState.HEAVY_CLOUD -> R.drawable.ic_hc
             WeatherState.LIGHT_CLOUD -> R.drawable.ic_lc

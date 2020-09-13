@@ -1,6 +1,6 @@
 # This is config file for sourcery, just run `sourcery` in this folder
 sources:
-  - Tests
+  - ../../../../../core/Tests
 templates:
   - .sourcery.LinuxMain.stencil
 output:
