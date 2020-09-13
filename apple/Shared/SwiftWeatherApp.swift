@@ -11,7 +11,7 @@ import WeatherCore
 @main
 struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate, LocationSearchDelegate {
 
-    let container = WeatherCoreContainer(basePath: Bundle.main.bundlePath)
+    let container = WeatherCoreContainer.createContainer(basePath: Bundle.main.bundlePath)
     
     var weatherViewModel: LocationWeatherViewModel?
     var searchViewModel: LocationSearchViewModel?
@@ -23,8 +23,8 @@ struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate, LocationSearchDel
     }
     
     init() {
-        weatherViewModel = container.getWeatherViewModel(delegate: self)
-        searchViewModel = container.getLocationSearchViewModel(delegate: self)
+        weatherViewModel = container.resolve(LocationWeatherViewModel.self, argument: self)
+        searchViewModel = container.resolve(LocationSearchViewModel.self, argument: self)
     }
     
     func onWeatherStateChanged(state: [LocationWeatherData]) {
