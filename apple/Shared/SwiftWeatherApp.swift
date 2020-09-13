@@ -9,11 +9,12 @@ import SwiftUI
 import WeatherCore
 
 @main
-struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate {
+struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate, LocationSearchDelegate {
 
     let container = WeatherCoreContainer(basePath: Bundle.main.bundlePath)
     
-    var viewModel: LocationWeatherViewModel?
+    var weatherViewModel: LocationWeatherViewModel?
+    var searchViewModel: LocationSearchViewModel?
     
     var body: some Scene {
         WindowGroup {
@@ -22,18 +23,15 @@ struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate {
     }
     
     init() {
-        viewModel = container.getWeatherViewModel(delegate: self)
-    }
-    
-    func onSearchSuggestionChanged(locations: [Location]) {
-        
-    }
-    
-    func onSavedLocationChanged(locations: [Location]) {
-    
+        weatherViewModel = container.getWeatherViewModel(delegate: self)
+        searchViewModel = container.getLocationSearchViewModel(delegate: self)
     }
     
     func onWeatherStateChanged(state: [LocationWeatherData]) {
+        
+    }
+    
+    func onSuggestionStateChanged(state: [Location]) {
         
     }
     
