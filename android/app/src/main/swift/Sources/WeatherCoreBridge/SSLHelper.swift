@@ -4,8 +4,6 @@
 
 import Foundation
 import WeatherCore
-import Swinject
-import SwinjectAutoregistration
 
 public class SSLHelper {
 

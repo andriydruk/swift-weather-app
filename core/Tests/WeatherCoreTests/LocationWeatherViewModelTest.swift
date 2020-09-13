@@ -7,39 +7,34 @@ let fakeWeather = Weather(state: .clear, date: Date(), minTemp: 0.0, maxTemp: 0.
         humidity: 0.0, visibility: 0.0, predictability: 0.0)
 
 class LocationWeatherViewModelTest: XCTestCase {
+    
+    var viewModel: LocationWeatherViewModel?
 
     func testLoadSavedLocations() {
         let weatherExpectation = expectation(description: "onWeatherChanged should be called")
-        let viewModel: LocationWeatherViewModel? = createViewModel(weatherExpectation: weatherExpectation)
+        viewModel = createViewModel(weatherExpectation: weatherExpectation)
         wait(for: [weatherExpectation], timeout: 1.0)
         XCTAssert(viewModel != nil)
     }
 
     func testAddLocationToSaved() {
         let addExpectation = expectation(description: "addLocation should be called")
-        let viewModel = createViewModel(addExpectation: addExpectation)
-        viewModel.addLocationToSaved(location: fakeLocation)
+        viewModel = createViewModel(addExpectation: addExpectation)
+        viewModel?.addLocationToSaved(location: fakeLocation)
         wait(for: [addExpectation], timeout: 1.0)
     }
 
     func testRemoveSavedLocation() {
         let removeExpectation = expectation(description: "removeLocation should be called")
-        let viewModel = createViewModel(removeExpectation: removeExpectation)
-        viewModel.removeSavedLocation(location: fakeLocation)
+        viewModel = createViewModel(removeExpectation: removeExpectation)
+        viewModel?.removeSavedLocation(location: fakeLocation)
         wait(for: [removeExpectation], timeout: 1.0)
-    }
-
-    func testWeatherSuccessful() {
-        let weatherExpectation = expectation(description: "onWeatherChanged should be called")
-        let viewModel = createViewModel(weatherExpectation: weatherExpectation)
-        viewModel.weather(withWoeId: 0)
-        wait(for: [weatherExpectation], timeout: 1.0)
     }
 
     func testWeatherFail() {
         let errorExpectation = expectation(description: "onError should be called")
-        let viewModel = createViewModel(errorExpectation: errorExpectation)
-        viewModel.weather(withWoeId: 1)
+        viewModel = createViewModel(errorExpectation: errorExpectation)
+        viewModel?.weather(withWoeId: 1)
         wait(for: [errorExpectation], timeout: 1.0)
     }
 
