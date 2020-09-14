@@ -7,11 +7,12 @@
 
 import SwiftUI
 import WeatherCore
+import Cleanse
 
 @main
 struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate, LocationSearchDelegate {
 
-    let container = WeatherCoreContainer(basePath: Bundle.main.bundlePath)
+    let factory = try! ComponentFactory.of(WeatherCoreComponent.prepare(withBasePath: Bundle.main.bundlePath)).build(())
     
     var weatherViewModel: LocationWeatherViewModel?
     var searchViewModel: LocationSearchViewModel?
@@ -23,8 +24,8 @@ struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate, LocationSearchDel
     }
     
     init() {
-        weatherViewModel = container.getWeatherViewModel(delegate: self)
-        searchViewModel = container.getLocationSearchViewModel(delegate: self)
+        weatherViewModel = factory.weatherViewModelFactory.build(self)
+        searchViewModel = factory.searchViewModelFactory.build(self)
     }
     
     func onWeatherStateChanged(state: [LocationWeatherData]) {
