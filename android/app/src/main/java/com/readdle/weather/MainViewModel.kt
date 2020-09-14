@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import com.readdle.weather.core.*
 
 class MainViewModel @ViewModelInject constructor(
-    container: WeatherCoreContainer
+    container: SwiftContainer
 ) : ViewModel(), LocationWeatherViewModelDelegateAndroid, LocationSearchDelegateAndroid {
 
     private val locationWeatherViewModel = container.getWeatherViewModel(this)
