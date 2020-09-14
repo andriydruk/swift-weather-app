@@ -7,7 +7,7 @@ import com.readdle.codegen.anotation.SwiftFunc
 import com.readdle.codegen.anotation.SwiftReference
 
 @SwiftReference
-class WeatherCoreContainer private constructor() {
+class SwiftContainer private constructor() {
 
     // Swift JNI private native pointer
     private val nativePointer = 0L
@@ -23,7 +23,7 @@ class WeatherCoreContainer private constructor() {
 
     companion object {
         @JvmStatic @SwiftFunc("init(basePath:)")
-		external fun init(basePath: String): WeatherCoreContainer
+		external fun init(basePath: String): SwiftContainer
     }
 
 }

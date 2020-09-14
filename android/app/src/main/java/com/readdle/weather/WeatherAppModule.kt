@@ -1,7 +1,7 @@
 package com.readdle.weather
 
 import android.app.Application
-import com.readdle.weather.core.WeatherCoreContainer
+import com.readdle.weather.core.SwiftContainer
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,7 +14,7 @@ object WeatherAppModule {
 
     @Provides
     @Singleton
-    fun weatherCoreContainer(application: Application): WeatherCoreContainer {
-        return WeatherCoreContainer.init(application.dataDir.absolutePath)
+    fun weatherCoreContainer(application: Application): SwiftContainer {
+        return SwiftContainer.init(application.dataDir.absolutePath)
     }
 }
