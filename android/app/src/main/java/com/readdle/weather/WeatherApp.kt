@@ -8,7 +8,6 @@ import dagger.hilt.android.HiltAndroidApp
 
 @HiltAndroidApp
 class WeatherApp: Application() {
-
     override fun onCreate() {
         super.onCreate()
         System.loadLibrary("WeatherCoreBridge")
@@ -16,5 +15,4 @@ class WeatherApp: Application() {
         assets.copyAssetsIfNeeded("cacert.pem", dataDir.absolutePath)
         SSLHelper.setupCert(dataDir.absolutePath)
     }
-
 }
