@@ -20,9 +20,10 @@ jobs:
       run: wget https://dl.google.com/android/repository/android-ndk-r17c-darwin-x86_64.zip;
         unzip android-ndk-r17c-darwin-x86_64.zip
     - name: Install Swift Android Toolchain
-      run: SWIFT_ANDROID=$(curl -fsSL https://api.bintray.com/packages/readdle/swift-android-toolchain/swift-android-toolchain/versions/_latest | python -c 'import json,sys;print(json.load(sys.stdin))["name"]');
-        wget https://dl.bintray.com/readdle/swift-android-toolchain/swift-android-$SWIFT_ANDROID.zip;
+      run: SWIFT_ANDROID=$(curl --silent "https://api.github.com/repos/readdle/swift-android-toolchain/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/');
+        wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android-$SWIFT_ANDROID.zip;
         unzip swift-android-$SWIFT_ANDROID.zip;
+        rm -rf swift-android-$SWIFT_ANDROID.zip;
         swift-android-$SWIFT_ANDROID/bin/swift-android tools --update;
         ln -sfn swift-android-$SWIFT_ANDROID swift-android-current
     - name: Download Android Emulator

@@ -1,12 +1,14 @@
 package com.readdle.weather
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.readdle.weather.core.*
+import dagger.hilt.android.lifecycle.HiltViewModel
+import javax.inject.Inject
 
-class MainViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MainViewModel @Inject constructor(
     container: SwiftContainer
 ) : ViewModel(), LocationWeatherViewModelDelegateAndroid, LocationSearchDelegateAndroid {
 
