@@ -1,4 +1,4 @@
-name: AndroidCore
+name: AndroidApp
 
 on: [pull_request]
 
@@ -26,22 +26,12 @@ jobs:
         rm -rf swift-android-$SWIFT_ANDROID.zip;
         swift-android-$SWIFT_ANDROID/bin/swift-android tools --update;
         ln -sfn swift-android-$SWIFT_ANDROID swift-android-current
-    - name: Download Android Emulator
-      run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;google_apis;x86_64"
-    - name: Create Android Emulator
-      run: $ANDROID_HOME/tools/bin/avdmanager create avd -n ci-test -k "system-images;android-29;google_apis;x86_64" -d "pixel"
-    - name: Start Android Emulator
-      run: $ANDROID_HOME/emulator/emulator -no-window -avd ci-test -noaudio > /dev/null &
-    - name: Install sourcery
-      run: brew install sourcery
-    - name: Run connected android tests
+    - name: Build all variants
       run: export TOOLCHAINS=org.swift.50320190830a;
         export SWIFT_ANDROID_ARCH=x86_64;
         export ANDROID_NDK_HOME=$(pwd)/android-ndk-r17c;
         export SWIFT_ANDROID_HOME=$(pwd)/swift-android-current;
         export PATH=$ANDROID_NDK_HOME:$PATH;
         export PATH=$SWIFT_ANDROID_HOME/bin:$SWIFT_ANDROID_HOME/build-tools/current:$PATH;
-        adb wait-for-device;
-        cd core;
-        sourcery;
-        swift-test
+        cd android;
+        ./gradlew app:build
