@@ -4,21 +4,22 @@
 
 import Foundation
 import WeatherCore
+import Cleanse
 
 public class SwiftContainer {
 
-    private let container: WeatherCoreContainer
+    private let factory: WeatherCoreFactory
 
     public init(basePath: String) {
-        self.container = WeatherCoreContainer(basePath: basePath)
+        self.factory = try! ComponentFactory.of(WeatherCoreComponent.prepare(withBasePath: basePath)).build(())
     }
 
     public func getWeatherViewModel(delegate: LocationWeatherViewModelDelegate) -> LocationWeatherViewModel {
-        return container.getWeatherViewModel(delegate: delegate)
+        return factory.weatherViewModelFactory.build(delegate)
     }
 
     public func getLocationSearchViewModel(delegate: LocationSearchDelegate) -> LocationSearchViewModel {
-        return container.getLocationSearchViewModel(delegate: delegate)
+        return factory.searchViewModelFactory.build(delegate)
     }
 
 }

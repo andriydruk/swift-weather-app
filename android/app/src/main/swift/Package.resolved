@@ -11,6 +11,15 @@
         }
       },
       {
+        "package": "Cleanse",
+        "repositoryURL": "https://github.com/andriydruk/Cleanse",
+        "state": {
+          "branch": "master",
+          "revision": "db5566dfe4f21f6fc5c5bbae7e0dc897a24510c7",
+          "version": null
+        }
+      },
+      {
         "package": "java_swift",
         "repositoryURL": "https://github.com/readdle/java_swift.git",
         "state": {

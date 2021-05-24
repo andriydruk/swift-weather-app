@@ -9,9 +9,11 @@ let package = Package(
             targets:["WeatherCore"]
         )
     ],
-    dependencies: [],
+    dependencies: [
+        .package(url: "https://github.com/andriydruk/Cleanse", .branch("master"))
+    ],
     targets: [
-        .target(name: "WeatherCore"),
+        .target(name: "WeatherCore", dependencies: ["Cleanse"]),
         .testTarget(name: "WeatherCoreTests", dependencies: ["WeatherCore"]),
     ]
 )
