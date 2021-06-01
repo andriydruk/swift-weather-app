@@ -4,21 +4,22 @@
 
 import Foundation
 import WeatherCore
+import Swinject
 
 public class SwiftContainer {
 
-    private let container: WeatherCoreContainer
+    private let container: Container
 
     public init(basePath: String) {
-        self.container = WeatherCoreContainer(basePath: basePath)
+        self.container = WeatherCoreContainer.createContainer(basePath: basePath)
     }
 
     public func getWeatherViewModel(delegate: LocationWeatherViewModelDelegate) -> LocationWeatherViewModel {
-        return container.getWeatherViewModel(delegate: delegate)
+        return container.resolve(LocationWeatherViewModel.self, argument: delegate)!
     }
 
     public func getLocationSearchViewModel(delegate: LocationSearchDelegate) -> LocationSearchViewModel {
-        return container.getLocationSearchViewModel(delegate: delegate)
+        return container.resolve(LocationSearchViewModel.self, argument: delegate)!
     }
 
 }
