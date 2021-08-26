@@ -22,7 +22,7 @@ class WeatherApp: Application() {
             sleep = false
         }
         while (sleep) {
-            Log.d("breezeApp", "sleeping")
+            //wait for Swift to be setup
         }
     }
 
