@@ -67,7 +67,7 @@ public class LocationWeatherViewModel {
             }
         }
         locations.forEach {
-            weather(withWoeId: $0.woeId)
+            weather(location: $0)
         }
     }
 
@@ -93,21 +93,17 @@ public class LocationWeatherViewModel {
         delegate.onWeatherStateChanged(state: currentState)
     }
 
-    internal func weather(withWoeId woeId: Int64) {
-        // Read from DB
-
-        // Query weather from provider
-        self.provider.weather(withWoeId: UInt64(woeId)) { [weak self] weathers, error in
+    func weather(location: Location) {
+        provider.weather(location: location){ [weak self] weather, error in
             guard let strongSelf = self else {
                 return
             }
             if let error = error {
                 strongSelf.delegate.onError(errorDescription: error.localizedDescription)
             }
-            else if let weather = weathers?.first {
-                strongSelf.updateWeather(woeId: woeId, weather: weather)
+            else if let weather = weather {
+                strongSelf.updateWeather(woeId: Int64(location.woeId), weather: weather)
             }
         }
     }
-
 }

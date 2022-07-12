@@ -9,8 +9,8 @@ public class WeatherCoreContainer {
 	private let weatherProvider: WeatherProvider
 	private let storage: WeatherDatabase
 
-	public init(basePath: String) {
-		weatherProvider = MetaWeatherProvider()
+	public init(basePath: String, apiKey: String) {
+		weatherProvider = OpenWeatherProvider(apiKey: apiKey)
 		storage = JSONStorage(basePath: basePath)
 	}
 

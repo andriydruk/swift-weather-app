@@ -27,15 +27,15 @@ public class LocationSearchViewModel {
     public func searchLocations(query: String?) {
         self.dispatchWorkItem?.cancel()
         dispatchWorkItem = DispatchWorkItem(block: {
-            self.provider.searchLocations(query: query) { [weak self] locations, error in
+            self.provider.searchLocations(query: query) { [weak self] location, error in
                 guard let strongSelf = self else {
                     return
                 }
                 if let error = error {
                     strongSelf.delegate.onError(errorDescription: error.localizedDescription)
                 }
-                else if let locations = locations {
-                    strongSelf.delegate.onSuggestionStateChanged(state: locations)
+                else if let location = location {
+                    strongSelf.delegate.onSuggestionStateChanged(state: [location])
                 }
             }
         })

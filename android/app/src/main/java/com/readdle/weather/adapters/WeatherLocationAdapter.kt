@@ -78,15 +78,13 @@ class WeatherLocationAdapter(private var weathers: List<LocationWeatherData>,
         return when (state) {
             WeatherState.NONE -> R.drawable.ic_sync
             WeatherState.SNOW -> R.drawable.ic_sn
-            WeatherState.SLEET -> R.drawable.ic_sl
-            WeatherState.HAIL -> R.drawable.ic_h
             WeatherState.THUNDERSTORM -> R.drawable.ic_t
-            WeatherState.HEAVY_RAIN -> R.drawable.ic_hr
-            WeatherState.LIGHT_RAIN -> R.drawable.ic_lr
             WeatherState.SHOWERS -> R.drawable.ic_s
-            WeatherState.HEAVY_CLOUD -> R.drawable.ic_hc
-            WeatherState.LIGHT_CLOUD -> R.drawable.ic_lc
             WeatherState.CLEAR -> R.drawable.ic_c
+            WeatherState.DRIZZLE -> R.drawable.ic_lr
+            WeatherState.RAIN -> R.drawable.ic_hr
+            WeatherState.CLOUDS -> R.drawable.ic_hc
+            WeatherState.ATMOSPHERE -> R.drawable.ic_lc
         }
     }
 }

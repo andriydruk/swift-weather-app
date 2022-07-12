@@ -26,24 +26,23 @@ class LocationSearchViewModelTest: XCTestCase {
 
     struct FakeProvider: WeatherProvider {
 
-        func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
+        func searchLocations(query: String?, completionBlock: @escaping (Location?, Error?) -> ()) {
             if query != nil {
-                completionBlock([fakeLocation], nil)
+                completionBlock(fakeLocation, nil)
             }
             else {
                 completionBlock(nil, NSError(domain: "", code: 0))
             }
         }
 
-        func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
-            if woeId == 0 {
-                completionBlock([fakeWeather], nil)
+        func weather(location: Location, completionBlock: @escaping (Weather?, Error?) -> ()) {
+            if location.woeId == 0 {
+                completionBlock(fakeWeather, nil)
             }
             else {
                 completionBlock(nil, NSError(domain: "", code: 0))
             }
         }
-
     }
     
     struct FakeWeatherRepositoryDelegate: LocationSearchDelegate {

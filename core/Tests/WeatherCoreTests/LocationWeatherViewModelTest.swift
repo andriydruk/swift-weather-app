@@ -34,7 +34,7 @@ class LocationWeatherViewModelTest: XCTestCase {
     func testWeatherFail() {
         let errorExpectation = expectation(description: "onError should be called")
         viewModel = createViewModel(errorExpectation: errorExpectation)
-        viewModel?.weather(withWoeId: 1)
+        viewModel?.weather(location: Location(woeId: 1, title: "fake", latitude: 0.0, longitude: 0.0))
         wait(for: [errorExpectation], timeout: 1.0)
     }
 
@@ -73,24 +73,23 @@ class LocationWeatherViewModelTest: XCTestCase {
 
     struct FakeProvider: WeatherProvider {
 
-        func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
+        func searchLocations(query: String?, completionBlock: @escaping (Location?, Error?) -> ()) {
             if query != nil {
-                completionBlock([fakeLocation], nil)
+                completionBlock(fakeLocation, nil)
             }
             else {
                 completionBlock(nil, NSError(domain: "", code: 0))
             }
         }
 
-        func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
-            if woeId == 0 {
-                completionBlock([fakeWeather], nil)
+        func weather(location: Location, completionBlock: @escaping (Weather?, Error?) -> ()) {
+            if location.woeId == 0 {
+                completionBlock(fakeWeather, nil)
             }
             else {
                 completionBlock(nil, NSError(domain: "", code: 0))
             }
         }
-
     }
     
     struct FakeWeatherRepositoryDelegate: LocationWeatherViewModelDelegate {

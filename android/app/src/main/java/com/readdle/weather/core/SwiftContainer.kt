@@ -22,8 +22,8 @@ class SwiftContainer private constructor() {
 	external fun getLocationSearchViewModel(delegate: LocationSearchDelegateAndroid): LocationSearchViewModel
 
     companion object {
-        @JvmStatic @SwiftFunc("init(basePath:)")
-		external fun init(basePath: String): SwiftContainer
+        @JvmStatic @SwiftFunc("init(basePath:apiKey:)")
+		external fun init(basePath: String, apiKey: String): SwiftContainer
     }
 
 }
