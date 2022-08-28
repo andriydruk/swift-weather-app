@@ -36,4 +36,5 @@ jobs:
         export PATH=$ANDROID_NDK_HOME:$PATH;
         export PATH=$SWIFT_ANDROID_HOME/bin:$SWIFT_ANDROID_HOME/build-tools/current:$PATH;
         cd android;
+        echo "API_KEY=XXXYYYZZZ" >> local.properties;
         ./gradlew app:build
