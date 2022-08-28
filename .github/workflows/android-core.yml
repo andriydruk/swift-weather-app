@@ -20,7 +20,7 @@ jobs:
       run: wget https://dl.google.com/android/repository/android-ndk-r21e-darwin-x86_64.zip;
         unzip android-ndk-r21e-darwin-x86_64.zip
     - name: Install Swift Android Toolchain
-      run: wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android-5.4-r1.zip;
+      run: wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android-5.4-r4.zip;
         unzip swift-android-5.4-r1.zip;
         rm -rf swift-android-5.4-r1.zip;
         swift-android-5.4-r1/bin/swift-android tools --update;
