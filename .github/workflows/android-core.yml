@@ -21,10 +21,10 @@ jobs:
         unzip android-ndk-r21e-darwin-x86_64.zip
     - name: Install Swift Android Toolchain
       run: wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android-5.4-r4.zip;
-        unzip swift-android-5.4-r1.zip;
-        rm -rf swift-android-5.4-r1.zip;
-        swift-android-5.4-r1/bin/swift-android tools --update;
-        ln -sfn swift-android-5.4-r1 swift-android-current
+        unzip swift-android-5.4-r4.zip;
+        rm -rf swift-android-5.4-r4.zip;
+        swift-android-5.4-r4/bin/swift-android tools --update;
+        ln -sfn swift-android-5.4-r4 swift-android-current
     - name: Download Android Emulator
       run: $ANDROID_HOME/tools/bin/sdkmanager "system-images;android-29;google_apis;x86_64"
     - name: Create Android Emulator
