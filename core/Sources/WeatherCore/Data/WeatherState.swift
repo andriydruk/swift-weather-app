@@ -7,13 +7,10 @@ import Foundation
 public enum WeatherState: Int, Codable {
     case none
     case snow
-    case sleet
-    case hail
     case thunderstorm
-    case heavyRain
-    case lightRain
-    case showers
-    case heavyCloud
-    case lightCloud
     case clear
+    case drizzle
+    case rain
+    case clouds
+    case atmosphere
 }

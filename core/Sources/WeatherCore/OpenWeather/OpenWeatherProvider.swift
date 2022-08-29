@@ -7,25 +7,27 @@ import Foundation
 import FoundationNetworking
 #endif
 
-class MetaWeatherProvider: WeatherProvider {
+class OpenWeatherProvider: WeatherProvider {
 
     let sessionConfig = URLSessionConfiguration.default
     let session: URLSession
+    private let apiKey: String
 
     var searchDataTask: URLSessionDataTask?
 
-    init() {
+    init(apiKey: String) {
         self.session = URLSession(configuration: sessionConfig, delegate: nil, delegateQueue: nil)
+        self.apiKey = apiKey
     }
 
-    func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void) {
+    func searchLocations(query: String?, completionBlock: @escaping (Location?, Error?) -> ()) {
         searchDataTask?.cancel()
         guard let query = query, query.count > 0 else {
-            completionBlock([], nil)
+            completionBlock(nil, nil)
             return
         }
-        if var urlComponents = URLComponents(string: "https://www.metaweather.com/api/location/search/") {
-            urlComponents.query = "query=\(query)"
+        if var urlComponents = URLComponents(string: "https://api.openweathermap.org/data/2.5/weather") {
+            urlComponents.query = "q=\(query)&appid=\(apiKey)"
             guard let url = urlComponents.url else {
                 return
             }
@@ -34,8 +36,8 @@ class MetaWeatherProvider: WeatherProvider {
                     self?.searchDataTask = nil
                 }
                 do {
-                    let result = try MetaWeatherProvider.parseResponse([MetaWeatherLocation].self, data: data, response: response, error: error)
-                    completionBlock(result?.map({ $0.toLocation() }), nil)
+                    let result = try OpenWeatherProvider.parseResponse(OpenWeatherResponse.self, data: data, response: response, error: error)
+                    completionBlock(result?.toLocation(), nil)
                 }
                 catch {
                     completionBlock(nil, error)
@@ -45,12 +47,12 @@ class MetaWeatherProvider: WeatherProvider {
         }
     }
 
-    func weather(withWoeId woeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void) {
-        if let url = URL(string: "https://www.metaweather.com/api/location/\(woeId)") {
+    func weather(location: Location, completionBlock: @escaping (Weather?, Error?) -> ()) {
+        if let url = URL(string: "https://api.openweathermap.org/data/2.5/weather?lat=\(location.latitude)&lon=\(location.longitude)&units=metric&appid=\(apiKey)") {
             let task = session.dataTask(with: url) { data, response, error in
                 do {
-                    let result = try MetaWeatherProvider.parseResponse(MetaWeatherResponse.self, data: data, response: response, error: error)
-                    completionBlock(result?.consolidated_weather.map({ $0.toWeather() }), nil)
+                    let result = try OpenWeatherProvider.parseResponse(OpenWeatherResponse.self, data: data, response: response, error: error)
+                    completionBlock(result?.toWeather() ?? nil, nil)
                 }
                 catch {
                     completionBlock(nil, error)
@@ -80,5 +82,4 @@ class MetaWeatherProvider: WeatherProvider {
             return nil
         }
     }
-
 }

@@ -45,15 +45,15 @@ class MainActivity : AppCompatActivity() {
             adapter = weatherLocationAdapter
         }
 
-        model.getWeatherLiveData().observe(this, {
+        model.getWeatherLiveData().observe(this) {
             weatherLocationAdapter.swapWeathers(it)
-        })
-        model.getSearchSuggestionLiveData().observe(this, {
+        }
+        model.getSearchSuggestionLiveData().observe(this) {
             searchLocationAdapter.swapLocations(it)
-        })
-        model.getErrorDescriptionLiveData().observe(this, {
+        }
+        model.getErrorDescriptionLiveData().observe(this) {
             Snackbar.make(recycler, it, Snackbar.LENGTH_SHORT).show()
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

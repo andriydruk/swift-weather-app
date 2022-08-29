@@ -6,8 +6,7 @@ import Foundation
 
 protocol WeatherProvider {
 
-    func searchLocations(query: String?, completionBlock: @escaping ([Location]?, Error?) -> Void)
+    func searchLocations(query: String?, completionBlock: @escaping (Location?, Error?) -> ())
 
-    func weather(withWoeId: UInt64, completionBlock: @escaping ([Weather]?, Error?) -> Void)
-
+    func weather(location: Location, completionBlock: @escaping (Weather?, Error?) -> ())
 }

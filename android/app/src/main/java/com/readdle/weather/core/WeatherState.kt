@@ -9,16 +9,14 @@ import com.readdle.codegen.anotation.SwiftValue
 enum class WeatherState(val rawValue: Int) {
 
 	NONE(0), 
-	SNOW(1), 
-	SLEET(2), 
-	HAIL(3), 
-	THUNDERSTORM(4), 
-	HEAVY_RAIN(5), 
-	LIGHT_RAIN(6), 
-	SHOWERS(7), 
-	HEAVY_CLOUD(8), 
-	LIGHT_CLOUD(9), 
-	CLEAR(10);
+	SNOW(1),
+	THUNDERSTORM(2),
+	SHOWERS(3),
+	CLEAR(4),
+    DRIZZLE(5),
+    RAIN(6),
+    CLOUDS(7),
+    ATMOSPHERE(8);
 
     companion object {
 

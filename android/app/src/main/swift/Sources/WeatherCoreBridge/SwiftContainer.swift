@@ -9,8 +9,8 @@ public class SwiftContainer {
 
     private let container: WeatherCoreContainer
 
-    public init(basePath: String) {
-        self.container = WeatherCoreContainer(basePath: basePath)
+    public init(basePath: String, apiKey: String) {
+        self.container = WeatherCoreContainer(basePath: basePath, apiKey: apiKey)
     }
 
     public func getWeatherViewModel(delegate: LocationWeatherViewModelDelegate) -> LocationWeatherViewModel {
