@@ -71,7 +71,7 @@ class JSONStorage: WeatherDatabase {
 
         // Default locations: Kiev, Berlin, San Fransisco
         locationsCache = [
-            Location(woeId: 924938, title: "Kiev", latitude: 50.441380, longitude: 30.522490),
+            Location(woeId: 924938, title: "Kyiv", latitude: 50.441380, longitude: 30.522490),
             Location(woeId: 638242, title: "Berlin", latitude: 52.516071, longitude: 13.376980),
             Location(woeId: 2487956, title: "San Francisco", latitude: 37.77712, longitude: -122.41964)
         ]
