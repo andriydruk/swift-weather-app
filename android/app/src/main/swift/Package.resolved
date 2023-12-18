@@ -2,21 +2,21 @@
   "object": {
     "pins": [
       {
-        "package": "CJavaVM",
-        "repositoryURL": "https://github.com/readdle/CJavaVM.git",
-        "state": {
-          "branch": null,
-          "revision": "e4b172f024fffb30a157a9105390408f03a6de5f",
-          "version": "2.4.1"
-        }
-      },
-      {
         "package": "java_swift",
         "repositoryURL": "https://github.com/readdle/java_swift.git",
         "state": {
           "branch": null,
-          "revision": "30860b7664e0cffd11dbd15bc5e70952896207a2",
-          "version": "2.1.9"
+          "revision": "f50fd0845ef22caa955444e72b25b72a59cf7b71",
+          "version": "2.2.2"
+        }
+      },
+      {
+        "package": "AndroidNDK",
+        "repositoryURL": "https://github.com/readdle/swift-android-ndk.git",
+        "state": {
+          "branch": null,
+          "revision": "9c19fb50851c9e05df875ef7db45c3d59b39aaa3",
+          "version": "1.1.3"
         }
       },
       {
@@ -33,17 +33,17 @@
         "repositoryURL": "https://github.com/readdle/swift-java.git",
         "state": {
           "branch": null,
-          "revision": "38459fc901d2ecd9655994459a6f099537a2cb98",
-          "version": "0.2.4"
+          "revision": "e9449162891ce8e9687e9ff87d44c0752556df49",
+          "version": "0.3.0"
         }
       },
       {
         "package": "JavaCoder",
         "repositoryURL": "https://github.com/readdle/swift-java-coder.git",
         "state": {
-          "branch": "dev/kotlin-support",
-          "revision": "a794ec4cf4d825bfc10d1848342634f7b0ca3f32",
-          "version": null
+          "branch": null,
+          "revision": "b0b66fa90d7b04c7214da15a17ec5ba14df61c8d",
+          "version": "1.1.0"
         }
       }
     ]

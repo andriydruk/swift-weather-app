@@ -1,12 +1,11 @@
-// Generated using JavaSwift codegen by Sourcery
-// DO NOT EDIT
-
 package com.readdle.weather.core;
 
+import android.os.Parcelable
 import com.readdle.codegen.anotation.SwiftValue
+import kotlinx.parcelize.Parcelize
 
-@SwiftValue
-enum class WeatherState(val rawValue: Int) {
+@SwiftValue @Parcelize
+enum class WeatherState(val rawValue: Int): Parcelable {
 
 	NONE(0), 
 	SNOW(1),
