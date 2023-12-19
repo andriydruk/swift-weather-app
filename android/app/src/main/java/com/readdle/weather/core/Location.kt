@@ -1,11 +1,8 @@
-// Generated using JavaSwift codegen by Sourcery
-// DO NOT EDIT
-
 package com.readdle.weather.core;
 
 import android.os.Parcelable
 import com.readdle.codegen.anotation.SwiftValue
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 @SwiftValue @Parcelize
 data class Location(

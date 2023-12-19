@@ -1,10 +1,8 @@
-// Generated using JavaSwift codegen by Sourcery
-// DO NOT EDIT
-
-package com.readdle.weather.core;
+package com.readdle.weather.core
 
 import com.readdle.codegen.anotation.SwiftFunc
 import com.readdle.codegen.anotation.SwiftReference
+import java.lang.annotation.Native
 
 @SwiftReference
 class SSLHelper private constructor() {
