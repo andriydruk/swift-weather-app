@@ -2,7 +2,6 @@ package com.readdle.weather.core
 
 import com.readdle.codegen.anotation.SwiftFunc
 import com.readdle.codegen.anotation.SwiftReference
-import java.lang.annotation.Native
 
 @SwiftReference
 class SSLHelper private constructor() {

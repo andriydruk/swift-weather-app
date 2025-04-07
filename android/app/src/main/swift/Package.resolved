@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/readdle/java_swift.git",
         "state": {
           "branch": null,
-          "revision": "f50fd0845ef22caa955444e72b25b72a59cf7b71",
-          "version": "2.2.2"
+          "revision": "8c6910dbc94657e5dfb2bc9d1d4d862ffd809d83",
+          "version": "2.2.3"
         }
       },
       {
@@ -15,8 +15,8 @@
         "repositoryURL": "https://github.com/readdle/swift-android-ndk.git",
         "state": {
           "branch": null,
-          "revision": "9c19fb50851c9e05df875ef7db45c3d59b39aaa3",
-          "version": "1.1.3"
+          "revision": "0fbe0b28344b75079ff5d811551727bdd4ab8ec0",
+          "version": "1.1.4"
         }
       },
       {
@@ -42,8 +42,8 @@
         "repositoryURL": "https://github.com/readdle/swift-java-coder.git",
         "state": {
           "branch": null,
-          "revision": "b0b66fa90d7b04c7214da15a17ec5ba14df61c8d",
-          "version": "1.1.0"
+          "revision": "d46cfd9f0efb61e45b08a01160a9e4aa35ae4817",
+          "version": "1.1.2"
         }
       }
     ]
