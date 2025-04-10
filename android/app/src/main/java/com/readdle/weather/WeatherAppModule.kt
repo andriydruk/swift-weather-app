@@ -15,6 +15,6 @@ object WeatherAppModule {
     @Provides
     @Singleton
     fun weatherCoreContainer(application: Application): SwiftContainer {
-        return SwiftContainer.init(application.dataDir.absolutePath, BuildConfig.API_KEY)
+        return SwiftContainer.init(application.dataDir.absolutePath, BuildConfig.WEATHER_API_KEY)
     }
 }

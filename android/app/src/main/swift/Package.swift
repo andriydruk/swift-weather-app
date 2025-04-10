@@ -53,9 +53,9 @@ let package = Package(
     products: addGenerated([
     ]),
     dependencies: [
-        .package(url: "https://github.com/readdle/java_swift.git", .exact("2.2.2")),
+        .package(url: "https://github.com/readdle/java_swift.git", .exact("2.2.3")),
         .package(url: "https://github.com/readdle/swift-java.git", .exact("0.3.0")),
-        .package(url: "https://github.com/readdle/swift-java-coder.git", .exact("1.1.0")),
+        .package(url: "https://github.com/readdle/swift-java-coder.git", .exact("1.1.2")),
         .package(url: "https://github.com/readdle/swift-anycodable.git", .exact("1.0.3")),
         .package(path: "../../../../../core")
     ],

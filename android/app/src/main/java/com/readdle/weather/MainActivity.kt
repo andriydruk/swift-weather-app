@@ -7,6 +7,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.core.view.ViewCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
@@ -14,6 +15,9 @@ import com.readdle.weather.adapters.SearchLocationAdapter
 import com.readdle.weather.adapters.WeatherLocationAdapter
 import com.readdle.weather.core.Location
 import dagger.hilt.android.AndroidEntryPoint
+import androidx.core.view.WindowCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -26,6 +30,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        WindowCompat.setDecorFitsSystemWindows(window, true)
         setContentView(R.layout.activity_main)
 
         val viewManager = LinearLayoutManager(this)
@@ -43,6 +48,12 @@ class MainActivity : AppCompatActivity() {
 
             // specify an viewAdapter (see also next example)
             adapter = weatherLocationAdapter
+        }
+
+        ViewCompat.setOnApplyWindowInsetsListener(recycler) { view, windowInsets ->
+            val insets = windowInsets.getInsets(WindowInsetsCompat.Type.systemBars())
+            view.updatePadding(top = insets.top)
+            windowInsets
         }
 
         model.getWeatherLiveData().observe(this) {
