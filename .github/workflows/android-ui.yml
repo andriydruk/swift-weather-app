@@ -9,19 +9,19 @@ jobs:
     
     steps:
     - uses: actions/checkout@v1
-    - name: Install Swift 6.0.3 toolchain
-      run: curl -L -O https://download.swift.org/swift-6.0.3-release/xcode/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-osx.pkg && sudo installer -pkg swift-6.0.3-RELEASE-osx.pkg -target /
+    - name: Install Swift 6.1 toolchain
+      run: curl -L -O https://download.swift.org/swift-6.1-release/xcode/swift-6.1-RELEASE/swift-6.1-RELEASE-osx.pkg && sudo installer -pkg swift-6.1-RELEASE-osx.pkg -target /
     - name: Install NDK
-      run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;26.2.11394342"
+      run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;27.3.13750724"
     - name: Install Swift Android Toolchain
       run: wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android.zip;
-        unzip swift-android.zip;
+        unzip -o swift-android.zip;
     - uses: actions/setup-java@v3
       with:
         distribution: 'zulu' # See 'Supported distributions' for available options
         java-version: '17'
     - name: Build all variants
-      run: export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/26.2.11394342;
+      run: export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.3.13750724;
         export SWIFT_ANDROID_HOME=$(pwd)/swift-android;
         export PATH=$ANDROID_NDK_HOME:$PATH;
         export PATH=$SWIFT_ANDROID_HOME/build-tools:$PATH;

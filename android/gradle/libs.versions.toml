@@ -1,6 +1,6 @@
 [versions]
 agp = "8.9.1"
-gradle = "6.0.3"
+gradle = "6.1.1"
 hiltAndroidGradlePlugin = "2.56.1"
 hiltVersion = "2.56.1"
 kotlin = "2.0.21"

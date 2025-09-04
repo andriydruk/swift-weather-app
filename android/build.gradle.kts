@@ -11,7 +11,6 @@ buildscript {
         // Repositories needed to find the plugin artifact itself
         google()
         mavenCentral() // The Readdle plugin artifact is here
-        maven("https://s01.oss.sonatype.org/content/repositories/comreaddleswiftjavacodegen-1041/")
     }
     dependencies {
         // Declare the plugin classpath dependency using its real coordinates
