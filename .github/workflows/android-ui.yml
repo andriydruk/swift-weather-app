@@ -21,10 +21,20 @@ jobs:
         distribution: 'zulu' # See 'Supported distributions' for available options
         java-version: '17'
     - name: Build all variants
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
       run: export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.3.13750724;
         export SWIFT_ANDROID_HOME=$(pwd)/swift-android;
         export PATH=$ANDROID_NDK_HOME:$PATH;
         export PATH=$SWIFT_ANDROID_HOME/build-tools:$PATH;
         cd android;
-        echo "API_KEY=XXXYYYZZZ" >> local.properties;
-        ./gradlew app:buildRelease
+        echo "API_KEY=$API_KEY" >> local.properties;
+        ./gradlew app:assembleRelease;
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-apks-${{ github.run_number }}
+        path: |
+          android/app/build/outputs/apk/**/*.apk
+        if-no-files-found: error
+        retention-days: 14  

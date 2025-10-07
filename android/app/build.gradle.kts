@@ -37,12 +37,49 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField("String", "WEATHER_API_KEY", "\"${openWeatherAPIKey}\"")
+
+        packaging {
+            jniLibs.excludes += "lib/**/libswift_Differentiation.so"
+            jniLibs.excludes += "lib/**/libswift_Volatile.so"
+            jniLibs.excludes += "lib/**/libswiftDifferentiationUnittest.so"
+            jniLibs.excludes += "lib/**/libswiftDistributed.so"
+            jniLibs.excludes += "lib/**/libswiftObservation.so"
+            jniLibs.excludes += "lib/**/libswiftRegexBuilder.so"
+            jniLibs.excludes += "lib/**/libswiftRemoteMirror.so"
+            jniLibs.excludes += "lib/**/libswiftRuntimeUnittest.so"
+            jniLibs.excludes += "lib/**/libswiftStdlibUnittest.so"
+            jniLibs.excludes += "lib/**/libswiftSwiftPrivate.so"
+            jniLibs.excludes += "lib/**/libswiftSwiftPrivateLibcExtras.so"
+            jniLibs.excludes += "lib/**/libswiftSwiftPrivateThreadExtras.so"
+            jniLibs.excludes += "lib/**/libswiftSwiftReflectionTest.so"
+            jniLibs.excludes += "lib/**/libXCTest.so"
+        }
+    }
+
+    ndkVersion = "27.3.13750724"
+
+    signingConfigs {
+        create("ciRelease") {
+            // Default debug keystore location on CI and local
+            storeFile = file(System.getProperty("user.home") + "/.android/debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
     }
 
     buildTypes {
         release {
+            signingConfig = signingConfigs.getByName("ciRelease")
             isDebuggable = false
             isJniDebuggable = false
+            isMinifyEnabled = true
+            isShrinkResources = true
+            ndk {
+                // Optimize for fast build times by not building all ABIs for debuggable variants.
+                //noinspection ChromeOsAbiSupport
+                abiFilters += listOf("arm64-v8a")
+            }
         }
         debug {
             isDebuggable = true
