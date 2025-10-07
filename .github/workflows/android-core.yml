@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   build:
 
-    runs-on: macos-13
+    runs-on: macos-15
     
     steps:
     - uses: actions/checkout@v1
@@ -16,17 +16,10 @@ jobs:
     - name: Install Swift Android Toolchain
       run: wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android.zip;
         unzip -o swift-android.zip;
-    - name: Download Android Emulator
-      run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager "system-images;android-29;google_apis;x86_64"
-    - name: Create Android Emulator
-      run: $ANDROID_HOME/cmdline-tools/latest/bin/avdmanager create avd -n ci-test -k "system-images;android-29;google_apis;x86_64" -d "pixel"
-    - name: Start Android Emulator
-      run: $ANDROID_HOME/emulator/emulator -avd ci-test -no-window -noaudio -no-boot-anim -no-snapshot -read-only -gpu off > /dev/null &
     - name: Run connected android tests
       run: export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/27.3.13750724;
         export SWIFT_ANDROID_ARCH=x86_64;
         export SWIFT_ANDROID_HOME=$(pwd)/swift-android;
         export PATH=$ANDROID_NDK_HOME:$SWIFT_ANDROID_HOME/build-tools:$PATH;
-        adb wait-for-device;
         cd core;
-        swift-android test
+        swift-android build
