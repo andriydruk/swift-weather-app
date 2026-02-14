@@ -28,18 +28,36 @@ class JSONStorage: WeatherDatabase {
         if locationsCache == nil {
             loadFromDisk()
         }
-        let contains = locationsCache?.contains(where: { $0.woeId == location.woeId })
-        if contains == false {
+        // Check by woeId or by proximity (within ~10km)
+        let isDuplicate = locationsCache?.contains(where: {
+            $0.woeId == location.woeId ||
+            (abs($0.latitude - location.latitude) < 0.1 && abs($0.longitude - location.longitude) < 0.1)
+        }) ?? false
+        if !isDuplicate {
             locationsCache?.append(location)
             saveOnDisk()
         }
     }
 
-    public func removeLocation(_ location: Location) {
+    public func findExistingLocation(_ location: Location) -> Location? {
         if locationsCache == nil {
             loadFromDisk()
         }
+        return locationsCache?.first(where: {
+            $0.woeId == location.woeId ||
+            (abs($0.latitude - location.latitude) < 0.1 && abs($0.longitude - location.longitude) < 0.1)
+        })
+    }
+
+    public func removeLocation(_ location: Location) {
+        NSLog("removeLocation: \(location)")
+        if locationsCache == nil {
+            NSLog("loadFromDisk")
+            loadFromDisk()
+        }
+        NSLog("locationsCache: \(locationsCache)")
         locationsCache?.removeAll(where: { $0.woeId == location.woeId })
+        NSLog("locationsCache after remove: \(locationsCache)")
         saveOnDisk()
     }
 

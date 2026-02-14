@@ -6,11 +6,12 @@ import Foundation
 import Dispatch
 
 public protocol LocationSearchDelegate {
-    func onSuggestionStateChanged(state: [Location])
+    func onSuggestionStateChanged(state: [LocationWeatherData])
     func onError(errorDescription: String)
 }
 
-private let DEFAULT_TIMEOUT_REQUEST = 0.1 // 100ms
+private let DEFAULT_TIMEOUT_REQUEST = 0.2 // 200ms debounce
+private let MIN_QUERY_LENGTH = 2
 
 public class LocationSearchViewModel {
 
@@ -26,16 +27,50 @@ public class LocationSearchViewModel {
 
     public func searchLocations(query: String?) {
         self.dispatchWorkItem?.cancel()
-        dispatchWorkItem = DispatchWorkItem(block: {
-            self.provider.searchLocations(query: query) { [weak self] location, error in
-                guard let strongSelf = self else {
-                    return
-                }
+        guard let query = query, query.count >= MIN_QUERY_LENGTH else {
+            delegate.onSuggestionStateChanged(state: [])
+            return
+        }
+        dispatchWorkItem = DispatchWorkItem(block: { [weak self] in
+            guard let strongSelf = self else { return }
+            strongSelf.provider.searchLocations(query: query) { [weak self] locations, error in
+                guard let strongSelf = self else { return }
                 if let error = error {
                     strongSelf.delegate.onError(errorDescription: error.localizedDescription)
+                    return
                 }
-                else if let location = location {
-                    strongSelf.delegate.onSuggestionStateChanged(state: [location])
+                guard !locations.isEmpty else {
+                    strongSelf.delegate.onSuggestionStateChanged(state: [])
+                    return
+                }
+
+                // Emit locations immediately without weather
+                let initial = locations.map { LocationWeatherData(location: $0, weather: nil) }
+                strongSelf.delegate.onSuggestionStateChanged(state: initial)
+
+                // Fetch weather for all locations in parallel
+                let group = DispatchGroup()
+                var weatherResults = [Int64: Weather]()
+                let lock = NSLock()
+
+                for location in locations {
+                    group.enter()
+                    strongSelf.provider.weather(location: location) { weather, _ in
+                        defer { group.leave() }
+                        if let weather = weather {
+                            lock.lock()
+                            weatherResults[location.woeId] = weather
+                            lock.unlock()
+                        }
+                    }
+                }
+
+                group.notify(queue: .global()) { [weak self] in
+                    guard let strongSelf = self else { return }
+                    let enriched = locations.map { loc in
+                        LocationWeatherData(location: loc, weather: weatherResults[loc.woeId])
+                    }
+                    strongSelf.delegate.onSuggestionStateChanged(state: enriched)
                 }
             }
         })

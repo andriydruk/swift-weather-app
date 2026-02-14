@@ -16,4 +16,7 @@ public struct Weather: Codable, Hashable {
     public let humidity: Float
     public let visibility: Float
     public let predictability: Float
+    public let feelsLike: Float
+    public let hourlyForecasts: [HourlyForecast]
+    public let dailyForecasts: [DailyForecast]
 }

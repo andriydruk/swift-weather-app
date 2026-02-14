@@ -22,8 +22,9 @@ public class LocationWeatherViewModel {
 
     private let dbQueue = OperationQueue()
 
-    private var stateLock = NSLock()
-    private var state = [Int64: LocationWeatherData]()
+    // Single ordered list as source of truth - protected by stateLock
+    private let stateLock = NSLock()
+    private var orderedData = [LocationWeatherData]()
 
     init(db: WeatherDatabase, provider: WeatherProvider, delegate: LocationWeatherViewModelDelegate) {
         self.db = db
@@ -45,52 +46,66 @@ public class LocationWeatherViewModel {
             guard let strongSelf = self else {
                 return
             }
-            strongSelf.db.addLocation(location)
-            strongSelf.addLocations(locations: [location])
+            strongSelf.stateLock.lock()
+            let alreadyExists = strongSelf.orderedData.contains(where: {
+                abs($0.location.latitude - location.latitude) < 0.1 &&
+                abs($0.location.longitude - location.longitude) < 0.1
+            })
+            strongSelf.stateLock.unlock()
+            if !alreadyExists {
+                strongSelf.db.addLocation(location)
+                strongSelf.addLocations(locations: [location])
+            }
         }
     }
 
     public func removeSavedLocation(location: Location) {
+        NSLog("removeSavedLocation: \(location)")
         dbQueue.addOperation { [weak self] in
+            NSLog("removeSavedLocation in dbQueue")
             guard let strongSelf = self else {
                 return
             }
+            NSLog("removeSavedLocation in dbQueue after guard")
             strongSelf.db.removeLocation(location)
-            strongSelf.removeLocation(woeId: location.woeId)
+            NSLog("removeSavedLocation in dbQueue after db.removeLocation")
+            strongSelf.stateLock.lock()
+            NSLog("removeSavedLocation in dbQueue after stateLock.lock")
+            strongSelf.orderedData.removeAll(where: { $0.location.woeId == location.woeId })
+            NSLog("removeSavedLocation in dbQueue after orderedData.removeAll")
+            let snapshot = strongSelf.orderedData
+            NSLog("removeSavedLocation in dbQueue after snapshot")
+            strongSelf.stateLock.unlock()
+            NSLog("removeSavedLocation in dbQueue after stateLock.unlock")
+            strongSelf.delegate.onWeatherStateChanged(state: snapshot)
+            NSLog("removeSavedLocation in dbQueue after delegate.onWeatherStateChanged")
         }
     }
 
     private func addLocations(locations: [Location]) {
-        modifyState {
-            locations.forEach {
-                state[$0.woeId] = LocationWeatherData(location: $0, weather: nil)
+        stateLock.lock()
+        for loc in locations {
+            if !orderedData.contains(where: { $0.location.woeId == loc.woeId }) {
+                orderedData.append(LocationWeatherData(location: loc, weather: nil))
             }
         }
+        let snapshot = orderedData
+        stateLock.unlock()
+        delegate.onWeatherStateChanged(state: snapshot)
+
         locations.forEach {
             weather(location: $0)
         }
     }
 
-    private func removeLocation(woeId: Int64) {
-        modifyState {
-            state[woeId] = nil
-        }
-    }
-
     private func updateWeather(woeId: Int64, weather: Weather) {
-        modifyState {
-            if let oldValue = state.removeValue(forKey: woeId) {
-                state[woeId] = LocationWeatherData(location: oldValue.location, weather: weather)
-            }
-        }
-    }
-
-    private func modifyState(block: ()->Void) {
         stateLock.lock()
-        block()
+        if let index = orderedData.firstIndex(where: { $0.location.woeId == woeId }) {
+            orderedData[index] = LocationWeatherData(location: orderedData[index].location, weather: weather)
+        }
+        let snapshot = orderedData
         stateLock.unlock()
-        let currentState = state.values.sorted(by: { $0.location.title > $1.location.title })
-        delegate.onWeatherStateChanged(state: currentState)
+        delegate.onWeatherStateChanged(state: snapshot)
     }
 
     func weather(location: Location) {

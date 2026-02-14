@@ -7,15 +7,14 @@ import kotlinx.parcelize.Parcelize
 @SwiftValue @Parcelize
 enum class WeatherState(val rawValue: Int): Parcelable {
 
-	NONE(0), 
+	NONE(0),
 	SNOW(1),
 	THUNDERSTORM(2),
-	SHOWERS(3),
-	CLEAR(4),
-    DRIZZLE(5),
-    RAIN(6),
-    CLOUDS(7),
-    ATMOSPHERE(8);
+	CLEAR(3),
+	DRIZZLE(4),
+	RAIN(5),
+	CLOUDS(6),
+	ATMOSPHERE(7);
 
     companion object {
 

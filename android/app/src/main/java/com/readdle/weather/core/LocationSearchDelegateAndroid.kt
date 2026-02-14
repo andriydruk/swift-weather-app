@@ -7,7 +7,7 @@ import com.readdle.codegen.anotation.SwiftDelegate
 interface LocationSearchDelegateAndroid {
 
     @SwiftCallbackFunc("onSuggestionStateChanged(state:)")
-	fun onSuggestionStateChanged(state: ArrayList<Location>)
+	fun onSuggestionStateChanged(state: ArrayList<LocationWeatherData>)
 
 	@SwiftCallbackFunc("onError(errorDescription:)")
 	fun onError(errorDescription: String)
