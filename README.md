@@ -3,11 +3,11 @@ On Feb. 24, 2022 Russia declared an [unprovoked war on Ukraine](https://war.ukra
 
 Please support Ukraine by lobbying your governments, protesting peacefully, and donating money to support the people of Ukraine. Below are links to trustworthy organizations that are helping to defend Ukraine in this unprovoked war:
 
-* [Donate to Come Back Alive](https://www.comebackalive.in.ua/donate)
+* [Donate to Come Back Alive](https://savelife.in.ua/en/)
 * [Donate to KOLO](https://koloua.com/en/)
 * [Donate to Prytula Foundation](https://prytulafoundation.org/en)
 
-# Swift Weather App ![AndroidCore](https://github.com/andriydruk/swift-weather-app/workflows/AndroidCore/badge.svg) ![MacCore](https://github.com/andriydruk/swift-weather-app/workflows/MacCore/badge.svg)
+# Swift Weather App ![MacCore](https://github.com/andriydruk/swift-weather-app/workflows/MacCore/badge.svg) ![AndroidApp](https://github.com/andriydruk/swift-weather-app/workflows/AndroidApp/badge.svg) ![iOSApp](https://github.com/andriydruk/swift-weather-app/workflows/iOSApp/badge.svg) ![macOSApp](https://github.com/andriydruk/swift-weather-app/workflows/macOSApp/badge.svg)
 
 Cross-platform Swift weather application for **Android**, **iOS**, **iPadOS**, and **macOS**.
 

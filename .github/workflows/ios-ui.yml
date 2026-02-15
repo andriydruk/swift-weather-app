@@ -1,0 +1,26 @@
+name: iOSApp
+
+on: [pull_request]
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode 26.2
+      run: sudo xcode-select -s /Applications/Xcode_26.2.app
+
+    - name: Configure API key
+      env:
+        WEATHER_API_KEY: ${{ secrets.API_KEY }}
+      run: echo "WEATHER_API_KEY = $WEATHER_API_KEY" > apple/Local.xcconfig
+
+    - name: Build iOS app
+      run: |
+        cd apple
+        xcodebuild -project SwiftWeather.xcodeproj \
+          -scheme iOS \
+          -destination 'generic/platform=iOS Simulator' \
+          build

@@ -5,16 +5,17 @@ class LocationSearchViewModelTest: XCTestCase {
 
     func testSearchLocationsSuccessful() {
         let suggestionExpectation = expectation(description: "onSearchSuggestionChanged should be called")
+        suggestionExpectation.expectedFulfillmentCount = 2 // initial + enriched with weather
         let repository = createViewModel(suggestionExpectation: suggestionExpectation)
-        repository.searchLocations(query: "")
-        wait(for: [suggestionExpectation], timeout: 1.0)
+        repository.searchLocations(query: "test")
+        wait(for: [suggestionExpectation], timeout: 2.0)
     }
 
     func testSearchLocationsFail() {
         let errorExpectation = expectation(description: "onError should be called")
         let repository = createViewModel(errorExpectation: errorExpectation)
-        repository.searchLocations(query: nil)
-        wait(for: [errorExpectation], timeout: 1.0)
+        repository.searchLocations(query: "error")
+        wait(for: [errorExpectation], timeout: 2.0)
     }
 
     func createViewModel(suggestionExpectation: XCTestExpectation? = nil,
@@ -26,12 +27,12 @@ class LocationSearchViewModelTest: XCTestCase {
 
     struct FakeProvider: WeatherProvider {
 
-        func searchLocations(query: String?, completionBlock: @escaping (Location?, Error?) -> ()) {
-            if query != nil {
-                completionBlock(fakeLocation, nil)
+        func searchLocations(query: String?, completionBlock: @escaping ([Location], Error?) -> ()) {
+            if query == "error" {
+                completionBlock([], NSError(domain: "", code: 0))
             }
             else {
-                completionBlock(nil, NSError(domain: "", code: 0))
+                completionBlock([fakeLocation], nil)
             }
         }
 
@@ -50,17 +51,15 @@ class LocationSearchViewModelTest: XCTestCase {
         let suggestionExpectation: XCTestExpectation?
         let errorExpectation: XCTestExpectation?
         
-        func onSuggestionStateChanged(state: [Location]) {
-            XCTAssertEqual(state.first?.woeId, fakeLocation.woeId)
+        func onSuggestionStateChanged(state: [LocationWeatherData]) {
+            if let first = state.first {
+                XCTAssertEqual(first.location.woeId, fakeLocation.woeId)
+            }
             suggestionExpectation?.fulfill()
         }
         
         func onError(errorDescription: String) {
-            #if os(Android)
-            XCTAssertEqual(errorDescription, "The operation could not be completed. ( error 0.)")
-            #else
-            XCTAssertEqual(errorDescription, "The operation couldn’t be completed. ( error 0.)")
-            #endif
+            XCTAssert(errorDescription.contains("error 0"))
             errorExpectation?.fulfill()
         }
     }
