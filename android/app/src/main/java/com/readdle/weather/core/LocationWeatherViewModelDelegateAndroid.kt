@@ -1,4 +1,4 @@
-package com.readdle.weather.core;
+package com.readdle.weather.core
 
 import com.readdle.codegen.anotation.SwiftCallbackFunc
 import com.readdle.codegen.anotation.SwiftDelegate
@@ -11,9 +11,5 @@ interface LocationWeatherViewModelDelegateAndroid {
 
 	@SwiftCallbackFunc("onError(errorDescription:)")
 	fun onError(errorDescription: String)
-
-    companion object {
-        
-    }
 
 }

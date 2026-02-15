@@ -4,11 +4,13 @@
 
 import Foundation
 
+// MARK: - Current Weather API response (/data/2.5/weather)
+
 struct OpenWeatherResponse: Codable {
     let coord: OpenWeatherLocation
-    let weather: [OpenWeather]
+    let weather: [OpenWeatherCondition]
     let main: OpenWeatherMain
-    let visibility: Int
+    let visibility: Int?
     let wind: OpenWeatherWind
     let id: Int
     let name: String
@@ -17,11 +19,6 @@ struct OpenWeatherResponse: Codable {
 struct OpenWeatherLocation: Codable {
     let lon: Float
     let lat: Float
-}
-
-struct OpenWeather: Codable {
-    let id: Int
-    let main: String
 }
 
 struct OpenWeatherMain: Codable {
@@ -33,14 +30,23 @@ struct OpenWeatherMain: Codable {
     let humidity: Int
 }
 
-// MARK: - Geocoding API response
+// MARK: - Weather condition
+//
+// Shared across current weather and forecast responses.
+// The `id` field maps to weather condition groups:
+//   2xx → thunderstorm
+//   3xx → drizzle
+//   5xx → rain
+//   6xx → snow
+//   7xx → atmosphere (mist, smoke, haze, dust, fog, sand, ash, squall, tornado)
+//   800 → clear
+//   80x → clouds
+//
+// Reference: https://openweathermap.org/weather-conditions
 
-struct GeocodingResult: Codable {
-    let name: String
-    let lat: Float
-    let lon: Float
-    let country: String
-    let state: String?
+struct OpenWeatherCondition: Codable {
+    let id: Int
+    let main: String
 }
 
 // MARK: - Photon (Komoot) geocoding API response
@@ -66,7 +72,7 @@ struct PhotonProperties: Codable {
     let city: String?
 }
 
-// MARK: - Forecast API response
+// MARK: - Forecast API response (/data/2.5/forecast)
 
 struct OpenWeatherForecastResponse: Codable {
     let list: [OpenWeatherForecastItem]
@@ -75,7 +81,7 @@ struct OpenWeatherForecastResponse: Codable {
 struct OpenWeatherForecastItem: Codable {
     let dt: Int
     let main: OpenWeatherMain
-    let weather: [OpenWeather]
+    let weather: [OpenWeatherCondition]
     let wind: OpenWeatherWind
 }
 
@@ -84,10 +90,12 @@ struct OpenWeatherWind: Codable {
     let deg: Int
 }
 
+// MARK: - Response → Model conversions
+
 extension OpenWeatherResponse {
 
     func toWeather(hourlyForecasts: [HourlyForecast] = [], dailyForecasts: [DailyForecast] = []) -> Weather {
-        Weather(state: weather.first?.main.toWeatherState() ?? .none,
+        Weather(state: weather.first?.toWeatherState() ?? .none,
                 date: Date(),
                 minTemp: main.temp_min,
                 maxTemp: main.temp_max,
@@ -96,8 +104,8 @@ extension OpenWeatherResponse {
                 windDirection: Float(wind.deg),
                 airPressure: Float(main.pressure),
                 humidity: Float(main.humidity),
-                visibility: Float(visibility),
-                predictability: Float(visibility),
+                visibility: Float(visibility ?? 10000),
+                predictability: Float(visibility ?? 10000),
                 feelsLike: main.feels_like ?? main.temp,
                 hourlyForecasts: hourlyForecasts,
                 dailyForecasts: dailyForecasts)
@@ -116,7 +124,7 @@ extension OpenWeatherForecastResponse {
             HourlyForecast(
                 date: Date(timeIntervalSince1970: Double(item.dt)),
                 temp: item.main.temp,
-                state: item.weather.first?.main.toWeatherState() ?? .none
+                state: item.weather.first?.toWeatherState() ?? .none
             )
         }
     }
@@ -140,7 +148,7 @@ extension OpenWeatherForecastResponse {
                 dailyMap[key] = (
                     minTemp: item.main.temp_min,
                     maxTemp: item.main.temp_max,
-                    state: item.weather.first?.main.toWeatherState() ?? .none,
+                    state: item.weather.first?.toWeatherState() ?? .none,
                     date: date
                 )
                 dayOrder.append(key)
@@ -159,18 +167,25 @@ extension OpenWeatherForecastResponse {
     }
 }
 
-fileprivate extension String {
+// MARK: - Weather condition ID → WeatherState mapping
+//
+// Uses the numeric condition ID for robust mapping instead of string matching.
+// The old string-based mapping missed Group 7xx conditions because the API
+// returns specific `main` values ("Mist", "Smoke", "Haze", "Fog", etc.)
+// rather than "Atmosphere".
+
+extension OpenWeatherCondition {
 
     func toWeatherState() -> WeatherState {
-        switch self {
-        case "Thunderstorm": return .thunderstorm
-        case "Drizzle": return .drizzle
-        case "Rain": return .rain
-        case "Snow": return .snow
-        case "Atmosphere": return .atmosphere
-        case "Clear":  return .clear
-        case "Clouds": return .clouds
-        default: return .none
+        switch id {
+        case 200..<300: return .thunderstorm
+        case 300..<400: return .drizzle
+        case 500..<600: return .rain
+        case 600..<700: return .snow
+        case 700..<800: return .atmosphere
+        case 800:       return .clear
+        case 801..<900: return .clouds
+        default:        return .none
         }
     }
 }

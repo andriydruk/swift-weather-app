@@ -1,4 +1,4 @@
-package com.readdle.weather.core;
+package com.readdle.weather.core
 
 import android.os.Parcelable
 import com.readdle.codegen.anotation.SwiftValue

@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
+import kotlin.math.abs
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -25,9 +26,6 @@ class MainViewModel @Inject constructor(
 
     private val _errorMessage = MutableStateFlow<String?>(null)
     val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
-
-    private val _selectedLocation = MutableStateFlow<LocationWeatherData?>(null)
-    val selectedLocation: StateFlow<LocationWeatherData?> = _selectedLocation.asStateFlow()
 
     private val _currentPageIndex = MutableStateFlow(0)
     val currentPageIndex: StateFlow<Int> = _currentPageIndex.asStateFlow()
@@ -64,22 +62,14 @@ class MainViewModel @Inject constructor(
 
     fun findExistingCityIndex(location: Location): Int {
         return _weatherState.value.indexOfFirst {
-            Math.abs(it.location.latitude - location.latitude) < 0.1f &&
-            Math.abs(it.location.longitude - location.longitude) < 0.1f
+            abs(it.location.latitude - location.latitude) < 0.1f &&
+            abs(it.location.longitude - location.longitude) < 0.1f
         }
     }
 
     fun removeLocation(location: Location) {
         Log.i("TAG", "remove location!!!")
         locationWeatherViewModel.removeSavedLocation(location)
-    }
-
-    fun selectLocation(data: LocationWeatherData) {
-        _selectedLocation.value = data
-    }
-
-    fun clearSelection() {
-        _selectedLocation.value = null
     }
 
     fun setCurrentPage(index: Int) {

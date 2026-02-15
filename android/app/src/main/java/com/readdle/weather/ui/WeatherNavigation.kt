@@ -31,8 +31,8 @@ fun cityBoundsKey(index: Int): String = "city_bounds_$index"
 @OptIn(ExperimentalSharedTransitionApi::class)
 @Composable
 fun WeatherNavigation(
-    viewModel: MainViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: MainViewModel = hiltViewModel()
 ) {
     val navController = rememberNavController()
     val weatherState by viewModel.weatherState.collectAsStateWithLifecycle()
@@ -61,10 +61,9 @@ fun WeatherNavigation(
                 exitTransition = { fadeOut() },
                 popEnterTransition = { fadeIn() },
                 popExitTransition = { fadeOut() }
-            ) { navBackStackEntry ->
+            ) { _ ->
                 CityListScreen(
                     locations = weatherState,
-                    currentPageIndex = currentPageIndex,
                     onCityClick = { index ->
                         viewModel.setCurrentPage(index)
                         navController.navigate(Screen.Main.route)
@@ -83,7 +82,7 @@ fun WeatherNavigation(
                 exitTransition = { fadeOut() },
                 popEnterTransition = { fadeIn() },
                 popExitTransition = { fadeOut() }
-            ) { navBackStackEntry ->
+            ) { _ ->
                 WeatherMainScreen(
                     allLocations = weatherState,
                     initialPage = currentPageIndex,

@@ -4,6 +4,7 @@ import androidx.compose.animation.AnimatedVisibilityScope
 import androidx.compose.animation.ExperimentalSharedTransitionApi
 import androidx.compose.animation.SharedTransitionScope
 import androidx.compose.animation.animateColorAsState
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -19,13 +20,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.readdle.weather.core.Location
 import com.readdle.weather.core.LocationWeatherData
-import com.readdle.weather.core.WeatherState
 import com.readdle.weather.ui.cityBoundsKey
 import com.readdle.weather.ui.theme.*
 import kotlin.math.roundToInt
@@ -34,7 +35,6 @@ import kotlin.math.roundToInt
 @Composable
 fun CityListScreen(
     locations: List<LocationWeatherData>,
-    currentPageIndex: Int,
     onCityClick: (Int) -> Unit,
     onAddClick: () -> Unit,
     onRemoveCity: (Location) -> Unit,
@@ -193,11 +193,10 @@ private fun CityRow(
             horizontalArrangement = Arrangement.End,
             modifier = Modifier.width(170.dp)
         ) {
-            Icon(
-                imageVector = getWeatherIcon(weather?.state),
+            Image(
+                painter = painterResource(getWeatherIcon(weather?.state)),
                 contentDescription = null,
-                modifier = Modifier.size(36.dp),
-                tint = getWeatherIconTint(weather?.state)
+                modifier = Modifier.size(36.dp)
             )
             if (weather != null) {
                 Text(

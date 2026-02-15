@@ -1,5 +1,6 @@
 package com.readdle.weather.ui.screens
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -18,6 +19,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.SolidColor
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -252,11 +254,10 @@ private fun SuggestionRow(
             modifier = Modifier.weight(1f)
         ) {
             if (weather != null) {
-                Icon(
-                    getWeatherIcon(weather.state),
+                Image(
+                    painter = painterResource(getWeatherIcon(weather.state)),
                     contentDescription = null,
-                    modifier = Modifier.size(28.dp),
-                    tint = getWeatherIconTint(weather.state)
+                    modifier = Modifier.size(28.dp)
                 )
             } else {
                 Icon(
@@ -314,11 +315,10 @@ private fun SavedCityRow(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier.weight(1f)
         ) {
-            Icon(
-                getWeatherIcon(weather?.state),
+            Image(
+                painter = painterResource(getWeatherIcon(weather?.state)),
                 contentDescription = null,
-                modifier = Modifier.size(28.dp),
-                tint = getWeatherIconTint(weather?.state)
+                modifier = Modifier.size(28.dp)
             )
             Text(
                 text = data.location.title,

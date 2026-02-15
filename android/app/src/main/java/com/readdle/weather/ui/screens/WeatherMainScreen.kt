@@ -16,20 +16,17 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Search
-import androidx.compose.material.icons.rounded.AcUnit
 import androidx.compose.material.icons.rounded.Air
 import androidx.compose.material.icons.rounded.Cloud
 import androidx.compose.material.icons.rounded.Compress
-import androidx.compose.material.icons.rounded.Grain
-import androidx.compose.material.icons.rounded.LocationOn
-import androidx.compose.material.icons.rounded.Thunderstorm
 import androidx.compose.material.icons.rounded.WaterDrop
-import androidx.compose.material.icons.rounded.WbCloudy
 import androidx.compose.material.icons.rounded.WbSunny
-import androidx.compose.material.icons.rounded.Water
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -41,13 +38,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.readdle.weather.core.DailyForecast
-import com.readdle.weather.core.HourlyForecast
+import com.readdle.weather.R
 import com.readdle.weather.core.LocationWeatherData
 import com.readdle.weather.core.WeatherState
 import com.readdle.weather.ui.cityBoundsKey
@@ -189,11 +185,10 @@ private fun WeatherPageContent(
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Icon(
-                    imageVector = getWeatherIcon(weather?.state),
+                Image(
+                    painter = painterResource(getWeatherIcon(weather?.state)),
                     contentDescription = null,
-                    modifier = Modifier.size(80.dp),
-                    tint = getWeatherIconTint(weather?.state)
+                    modifier = Modifier.size(80.dp)
                 )
                 Text(
                     text = if (weather != null) "${weather.temp.roundToInt()}\u00B0" else "--\u00B0",
@@ -374,9 +369,10 @@ private fun HourlyItem(time: String, temp: String, weatherState: WeatherState?) 
         verticalArrangement = Arrangement.spacedBy(8.dp)
     ) {
         Text(time, color = TextWhite70, fontSize = 15.sp, fontWeight = FontWeight.Medium)
-        Icon(
-            getWeatherIcon(weatherState), null, Modifier.size(28.dp),
-            tint = getWeatherIconTint(weatherState)
+        Image(
+            painter = painterResource(getWeatherIcon(weatherState)),
+            contentDescription = null,
+            modifier = Modifier.size(28.dp)
         )
         Text(temp, color = TextWhite, fontSize = 18.sp, fontWeight = FontWeight.SemiBold)
     }
@@ -395,9 +391,10 @@ private fun DailyForecastRow(dayName: String, state: WeatherState?, low: String,
             fontWeight = FontWeight.Medium,
             modifier = Modifier.weight(1f)
         )
-        Icon(
-            getWeatherIcon(state), null, Modifier.size(28.dp),
-            tint = getWeatherIconTint(state)
+        Image(
+            painter = painterResource(getWeatherIcon(state)),
+            contentDescription = null,
+            modifier = Modifier.size(28.dp)
         )
         Spacer(Modifier.width(20.dp))
         Text(low, color = TextWhite50, fontSize = 18.sp, fontWeight = FontWeight.Normal,
@@ -430,24 +427,17 @@ private fun DetailCard(title: String, icon: ImageVector, value: String, unit: St
     }
 }
 
-fun getWeatherIcon(state: WeatherState?): ImageVector = when (state) {
-    WeatherState.CLEAR -> Icons.Rounded.WbSunny
-    WeatherState.CLOUDS -> Icons.Rounded.Cloud
-    WeatherState.RAIN -> Icons.Rounded.Water
-    WeatherState.DRIZZLE -> Icons.Rounded.Grain
-    WeatherState.SNOW -> Icons.Rounded.AcUnit
-    WeatherState.THUNDERSTORM -> Icons.Rounded.Thunderstorm
-    WeatherState.ATMOSPHERE -> Icons.Rounded.WbCloudy
-    WeatherState.NONE -> Icons.Rounded.WbSunny
-    null -> Icons.Rounded.Cloud
-}
-
-fun getWeatherIconTint(state: WeatherState?): Color = when (state) {
-    WeatherState.CLEAR -> WeatherYellow
-    WeatherState.SNOW -> Color(0xFFB3E5FC)
-    WeatherState.THUNDERSTORM -> Color(0xFFFFD54F)
-    WeatherState.NONE -> WeatherYellow
-    else -> Color(0xFFE0E0E0)
+@DrawableRes
+fun getWeatherIcon(state: WeatherState?): Int = when (state) {
+    WeatherState.CLEAR -> R.drawable.weather_condition_clear_day
+    WeatherState.CLOUDS -> R.drawable.weather_condition_cloudy
+    WeatherState.RAIN -> R.drawable.weather_condition_rain
+    WeatherState.DRIZZLE -> R.drawable.weather_condition_drizzle
+    WeatherState.SNOW -> R.drawable.weather_condition_snow
+    WeatherState.THUNDERSTORM -> R.drawable.weather_condition_thunderstorms
+    WeatherState.ATMOSPHERE -> R.drawable.weather_condition_fog
+    WeatherState.NONE -> R.drawable.weather_condition_clear_day
+    null -> R.drawable.weather_condition_cloudy
 }
 
 fun getWeatherDescription(state: WeatherState?): String = when (state) {
