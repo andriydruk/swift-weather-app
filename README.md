@@ -13,19 +13,7 @@ Cross-platform Swift weather application for **Android**, **iOS**, **iPadOS**, a
 
 The app shares a common Swift core (`WeatherCore`) for business logic, networking, and persistence across all platforms. Each platform has its own native UI layer - Jetpack Compose on Android and SwiftUI on Apple platforms.
 
-## Screenshots
-
-### Android
-
-![Android](./doc/android.png)
-
-### iOS
-
-![iOS](./doc/ios.png)
-
-### macOS
-
-![macOS](./doc/macos.png)
+![Swift Weather App](./doc/composite.png)
 
 ## Architecture
 
@@ -82,6 +70,8 @@ swift-weather-app/
 
 ### Android
 
+![Android](./doc/android.png)
+
 For building the Android application you need [Readdle's Swift Android Toolchain](https://github.com/readdle/swift-android-toolchain#installation). Please follow the installation guide first.
 
 **Prerequisites:**
@@ -104,6 +94,10 @@ For building the Android application you need [Readdle's Swift Android Toolchain
 The Gradle build automatically compiles the Swift core and bridge package via the `com.readdle.android.swift` plugin.
 
 ### iOS / iPadOS / macOS
+
+![iOS](./doc/ios.png)
+
+![macOS](./doc/macos.png)
 
 **Prerequisites:**
 - Xcode 15 or later
