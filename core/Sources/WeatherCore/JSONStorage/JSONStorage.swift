@@ -87,11 +87,13 @@ class JSONStorage: WeatherDatabase {
             }
         }
 
-        // Default locations: Kiev, Berlin, San Fransisco
+        // Default locations - Readdle office cities
         locationsCache = [
-            Location(woeId: 924938, title: "Kyiv", latitude: 50.441380, longitude: 30.522490),
-            Location(woeId: 638242, title: "Berlin", latitude: 52.516071, longitude: 13.376980),
-            Location(woeId: 2487956, title: "San Francisco", latitude: 37.77712, longitude: -122.41964)
+            Location(woeId: 929717, title: "Odesa, UA", latitude: 46.482952, longitude: 30.712481),
+            Location(woeId: 924938, title: "Kyiv, UA", latitude: 50.450100, longitude: 30.523400),
+            Location(woeId: 638242, title: "Berlin, DE", latitude: 52.520008, longitude: 13.404954),
+            Location(woeId: 44418, title: "London, GB", latitude: 51.507351, longitude: -0.127758),
+            Location(woeId: 523920, title: "Warsaw, PL", latitude: 52.229676, longitude: 21.012229)
         ]
     }
 

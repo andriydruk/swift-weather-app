@@ -9,33 +9,19 @@ import SwiftUI
 import WeatherCore
 
 @main
-struct SwiftWeatherApp: App, LocationWeatherViewModelDelegate, LocationSearchDelegate {
+struct SwiftWeatherApp: App {
 
-    let container = WeatherCoreContainer(basePath: Bundle.main.bundlePath)
-    
-    var weatherViewModel: LocationWeatherViewModel?
-    var searchViewModel: LocationSearchViewModel?
-    
+    @StateObject private var viewModel: WeatherViewModel
+
+    init() {
+        let apiKey = Bundle.main.object(forInfoDictionaryKey: "WEATHER_API_KEY") as? String ?? ""
+        _viewModel = StateObject(wrappedValue: WeatherViewModel(apiKey: apiKey))
+    }
+
     var body: some Scene {
         WindowGroup {
             ContentView()
+                .environmentObject(viewModel)
         }
-    }
-    
-    init() {
-        weatherViewModel = container.getWeatherViewModel(delegate: self)
-        searchViewModel = container.getLocationSearchViewModel(delegate: self)
-    }
-    
-    func onWeatherStateChanged(state: [LocationWeatherData]) {
-        
-    }
-    
-    func onSuggestionStateChanged(state: [Location]) {
-        
-    }
-    
-    func onError(errorDescription: String) {
-        NSLog("Error: %s", errorDescription)
     }
 }

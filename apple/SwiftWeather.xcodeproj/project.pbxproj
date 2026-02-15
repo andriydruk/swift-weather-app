@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -17,6 +17,16 @@
 		09B25AF424B0C4A4004DFBA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 09B25AC824B0C4A4004DFBA0 /* Assets.xcassets */; };
 		84E895AC24F10FB0000A82E6 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 84E895AB24F10FB0000A82E6 /* WeatherCore */; };
 		84E895AE24F10FBA000A82E6 /* WeatherCore in Frameworks */ = {isa = PBXBuildFile; productRef = 84E895AD24F10FBA000A82E6 /* WeatherCore */; };
+		AA001100000000000000AA11 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000100000000000000AA01 /* WeatherViewModel.swift */; };
+		AA001200000000000000AA12 /* WeatherHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000200000000000000AA02 /* WeatherHelpers.swift */; };
+		AA001300000000000000AA13 /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000300000000000000AA03 /* CityListView.swift */; };
+		AA001400000000000000AA14 /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000400000000000000AA04 /* WeatherDetailView.swift */; };
+		AA001500000000000000AA15 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000500000000000000AA05 /* SearchView.swift */; };
+		AA002100000000000000AA21 /* WeatherViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000100000000000000AA01 /* WeatherViewModel.swift */; };
+		AA002200000000000000AA22 /* WeatherHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000200000000000000AA02 /* WeatherHelpers.swift */; };
+		AA002300000000000000AA23 /* CityListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000300000000000000AA03 /* CityListView.swift */; };
+		AA002400000000000000AA24 /* WeatherDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000400000000000000AA04 /* WeatherDetailView.swift */; };
+		AA002500000000000000AA25 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA000500000000000000AA05 /* SearchView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,6 +62,12 @@
 		09B25AEC24B0C4A4004DFBA0 /* Tests_macOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests_macOS.swift; sourceTree = "<group>"; };
 		09B25AEE24B0C4A4004DFBA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		84E895A824F10D19000A82E6 /* core */ = {isa = PBXFileReference; lastKnownFileType = folder; name = core; path = ../core; sourceTree = "<group>"; };
+		AA000100000000000000AA01 /* WeatherViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherViewModel.swift; sourceTree = "<group>"; };
+		AA000200000000000000AA02 /* WeatherHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHelpers.swift; sourceTree = "<group>"; };
+		AA000300000000000000AA03 /* CityListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityListView.swift; sourceTree = "<group>"; };
+		AA000400000000000000AA04 /* WeatherDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherDetailView.swift; sourceTree = "<group>"; };
+		AA000500000000000000AA05 /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
+		AA000600000000000000AA06 /* Local.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Local.xcconfig; path = Local.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -91,6 +107,7 @@
 		09B25AC024B0C4A3004DFBA0 = {
 			isa = PBXGroup;
 			children = (
+				AA000600000000000000AA06 /* Local.xcconfig */,
 				84E895A824F10D19000A82E6 /* core */,
 				09B25AC524B0C4A3004DFBA0 /* Shared */,
 				09B25ACF24B0C4A4004DFBA0 /* iOS */,
@@ -107,6 +124,11 @@
 			children = (
 				09B25AC624B0C4A3004DFBA0 /* SwiftWeatherApp.swift */,
 				09B25AC724B0C4A3004DFBA0 /* ContentView.swift */,
+				AA000100000000000000AA01 /* WeatherViewModel.swift */,
+				AA000200000000000000AA02 /* WeatherHelpers.swift */,
+				AA000300000000000000AA03 /* CityListView.swift */,
+				AA000400000000000000AA04 /* WeatherDetailView.swift */,
+				AA000500000000000000AA05 /* SearchView.swift */,
 				09B25AC824B0C4A4004DFBA0 /* Assets.xcassets */,
 			);
 			path = Shared;
@@ -332,6 +354,11 @@
 			files = (
 				09B25AF124B0C4A4004DFBA0 /* ContentView.swift in Sources */,
 				09B25AEF24B0C4A4004DFBA0 /* SwiftWeatherApp.swift in Sources */,
+				AA001100000000000000AA11 /* WeatherViewModel.swift in Sources */,
+				AA001200000000000000AA12 /* WeatherHelpers.swift in Sources */,
+				AA001300000000000000AA13 /* CityListView.swift in Sources */,
+				AA001400000000000000AA14 /* WeatherDetailView.swift in Sources */,
+				AA001500000000000000AA15 /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,6 +368,11 @@
 			files = (
 				09B25AF224B0C4A4004DFBA0 /* ContentView.swift in Sources */,
 				09B25AF024B0C4A4004DFBA0 /* SwiftWeatherApp.swift in Sources */,
+				AA002100000000000000AA21 /* WeatherViewModel.swift in Sources */,
+				AA002200000000000000AA22 /* WeatherHelpers.swift in Sources */,
+				AA002300000000000000AA23 /* CityListView.swift in Sources */,
+				AA002400000000000000AA24 /* WeatherDetailView.swift in Sources */,
+				AA002500000000000000AA25 /* SearchView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -386,6 +418,7 @@
 /* Begin XCBuildConfiguration section */
 		09B25AF524B0C4A4004DFBA0 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA000600000000000000AA06 /* Local.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -445,6 +478,7 @@
 		};
 		09B25AF624B0C4A4004DFBA0 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA000600000000000000AA06 /* Local.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ANALYZER_NONNULL = YES;
@@ -503,7 +537,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -524,7 +558,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = iOS/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -553,7 +587,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = readdle.Weather.SwiftWeather;
 				PRODUCT_NAME = SwiftWeather;
 				SDKROOT = macosx;
@@ -576,7 +610,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = readdle.Weather.SwiftWeather;
 				PRODUCT_NAME = SwiftWeather;
 				SDKROOT = macosx;
@@ -590,7 +624,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Tests iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -611,7 +645,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "Tests iOS/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -639,7 +673,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "readdle.Weather.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
@@ -660,7 +694,7 @@
 					"@executable_path/../Frameworks",
 					"@loader_path/../Frameworks",
 				);
-				MACOSX_DEPLOYMENT_TARGET = 10.16;
+				MACOSX_DEPLOYMENT_TARGET = 13.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "readdle.Weather.Tests-macOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = macosx;
