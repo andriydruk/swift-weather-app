@@ -19,3 +19,12 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Swift JNI bridge - native code accesses fields and methods by name
+-keep class com.readdle.weather.core.** { *; }
+
+# Readdle Swift codegen annotations must survive R8
+-keep class com.readdle.codegen.anotation.** { *; }
+
+# Keep all Readdle Swift runtime classes used by the bridge
+-keep class com.readdle.swift.** { *; }
