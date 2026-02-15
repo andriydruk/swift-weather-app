@@ -31,3 +31,4 @@ core/WeatherCore.xcodeproj/xcshareddata
 core/WeatherCore.xcodeproj/project.xcworkspace/xcshareddata
 Package.resolved
 .idea
+apple/Local.xcconfig

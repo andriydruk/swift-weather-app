@@ -1,11 +1,14 @@
 package com.readdle.weather
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.readdle.weather.core.*
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import javax.inject.Inject
+import kotlin.math.abs
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
@@ -15,9 +18,17 @@ class MainViewModel @Inject constructor(
     private val locationWeatherViewModel = container.getWeatherViewModel(this)
     private val locationSearchViewModel = container.getLocationSearchViewModel(this)
 
-    private val weatherLiveData = MutableLiveData<List<LocationWeatherData>>()
-    private val searchSuggestionLiveData = MutableLiveData<List<Location>>()
-    private val errorDescriptionLiveData = MutableLiveData<String>()
+    private val _weatherState = MutableStateFlow<List<LocationWeatherData>>(emptyList())
+    val weatherState: StateFlow<List<LocationWeatherData>> = _weatherState.asStateFlow()
+
+    private val _searchSuggestions = MutableStateFlow<List<LocationWeatherData>>(emptyList())
+    val searchSuggestions: StateFlow<List<LocationWeatherData>> = _searchSuggestions.asStateFlow()
+
+    private val _errorMessage = MutableStateFlow<String?>(null)
+    val errorMessage: StateFlow<String?> = _errorMessage.asStateFlow()
+
+    private val _currentPageIndex = MutableStateFlow(0)
+    val currentPageIndex: StateFlow<Int> = _currentPageIndex.asStateFlow()
 
     override fun onCleared() {
         super.onCleared()
@@ -25,28 +36,20 @@ class MainViewModel @Inject constructor(
         locationSearchViewModel.release()
     }
 
-    fun getWeatherLiveData() : LiveData<List<LocationWeatherData>> {
-        return weatherLiveData
-    }
-
-    fun getSearchSuggestionLiveData() : LiveData<List<Location>> {
-        return searchSuggestionLiveData
-    }
-
-    fun getErrorDescriptionLiveData() : LiveData<String> {
-        return errorDescriptionLiveData
-    }
-
-    override fun onSuggestionStateChanged(state: ArrayList<Location>) {
-        searchSuggestionLiveData.postValue(state)
+    override fun onSuggestionStateChanged(state: ArrayList<LocationWeatherData>) {
+        _searchSuggestions.value = state
     }
 
     override fun onWeatherStateChanged(state: ArrayList<LocationWeatherData>) {
-        weatherLiveData.postValue(state)
+        _weatherState.value = state
     }
 
     override fun onError(errorDescription: String) {
-        errorDescriptionLiveData.postValue(errorDescription)
+        _errorMessage.value = errorDescription
+    }
+
+    fun clearError() {
+        _errorMessage.value = null
     }
 
     fun searchLocations(newText: String?) {
@@ -57,8 +60,19 @@ class MainViewModel @Inject constructor(
         locationWeatherViewModel.addLocationToSaved(location)
     }
 
+    fun findExistingCityIndex(location: Location): Int {
+        return _weatherState.value.indexOfFirst {
+            abs(it.location.latitude - location.latitude) < 0.1f &&
+            abs(it.location.longitude - location.longitude) < 0.1f
+        }
+    }
+
     fun removeLocation(location: Location) {
+        Log.i("TAG", "remove location!!!")
         locationWeatherViewModel.removeSavedLocation(location)
     }
 
+    fun setCurrentPage(index: Int) {
+        _currentPageIndex.value = index
+    }
 }

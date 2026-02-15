@@ -1,4 +1,4 @@
-package com.readdle.weather.core;
+package com.readdle.weather.core
 
 import android.os.Parcelable
 import com.readdle.codegen.anotation.SwiftValue
@@ -17,5 +17,8 @@ data class Weather(
 		var airPressure: Float = 0.0f,
 		var humidity: Float = 0.0f,
 		var visibility: Float = 0.0f,
-		var predictability: Float = 0.0f
+		var predictability: Float = 0.0f,
+		var feelsLike: Float = 0.0f,
+		var hourlyForecasts: ArrayList<HourlyForecast> = arrayListOf(),
+		var dailyForecasts: ArrayList<DailyForecast> = arrayListOf()
 ): Parcelable

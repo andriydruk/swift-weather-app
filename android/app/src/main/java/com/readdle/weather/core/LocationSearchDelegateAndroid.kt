@@ -1,4 +1,4 @@
-package com.readdle.weather.core;
+package com.readdle.weather.core
 
 import com.readdle.codegen.anotation.SwiftCallbackFunc
 import com.readdle.codegen.anotation.SwiftDelegate
@@ -7,13 +7,9 @@ import com.readdle.codegen.anotation.SwiftDelegate
 interface LocationSearchDelegateAndroid {
 
     @SwiftCallbackFunc("onSuggestionStateChanged(state:)")
-	fun onSuggestionStateChanged(state: ArrayList<Location>)
+	fun onSuggestionStateChanged(state: ArrayList<LocationWeatherData>)
 
 	@SwiftCallbackFunc("onError(errorDescription:)")
 	fun onError(errorDescription: String)
-
-    companion object {
-        
-    }
 
 }

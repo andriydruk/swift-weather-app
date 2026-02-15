@@ -4,6 +4,7 @@ import java.util.Properties
 plugins {
     alias(libs.plugins.android.application) apply false
     alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose) apply false
 }
 
 buildscript {
@@ -11,7 +12,6 @@ buildscript {
         // Repositories needed to find the plugin artifact itself
         google()
         mavenCentral() // The Readdle plugin artifact is here
-        maven("https://s01.oss.sonatype.org/content/repositories/comreaddleswiftjavacodegen-1041/")
     }
     dependencies {
         // Declare the plugin classpath dependency using its real coordinates

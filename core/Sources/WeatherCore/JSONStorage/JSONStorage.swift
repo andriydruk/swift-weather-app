@@ -28,18 +28,36 @@ class JSONStorage: WeatherDatabase {
         if locationsCache == nil {
             loadFromDisk()
         }
-        let contains = locationsCache?.contains(where: { $0.woeId == location.woeId })
-        if contains == false {
+        // Check by woeId or by proximity (within ~10km)
+        let isDuplicate = locationsCache?.contains(where: {
+            $0.woeId == location.woeId ||
+            (abs($0.latitude - location.latitude) < 0.1 && abs($0.longitude - location.longitude) < 0.1)
+        }) ?? false
+        if !isDuplicate {
             locationsCache?.append(location)
             saveOnDisk()
         }
     }
 
-    public func removeLocation(_ location: Location) {
+    public func findExistingLocation(_ location: Location) -> Location? {
         if locationsCache == nil {
             loadFromDisk()
         }
+        return locationsCache?.first(where: {
+            $0.woeId == location.woeId ||
+            (abs($0.latitude - location.latitude) < 0.1 && abs($0.longitude - location.longitude) < 0.1)
+        })
+    }
+
+    public func removeLocation(_ location: Location) {
+        NSLog("removeLocation: \(location)")
+        if locationsCache == nil {
+            NSLog("loadFromDisk")
+            loadFromDisk()
+        }
+        NSLog("locationsCache: \(locationsCache)")
         locationsCache?.removeAll(where: { $0.woeId == location.woeId })
+        NSLog("locationsCache after remove: \(locationsCache)")
         saveOnDisk()
     }
 
@@ -69,11 +87,13 @@ class JSONStorage: WeatherDatabase {
             }
         }
 
-        // Default locations: Kiev, Berlin, San Fransisco
+        // Default locations - Readdle office cities
         locationsCache = [
-            Location(woeId: 924938, title: "Kyiv", latitude: 50.441380, longitude: 30.522490),
-            Location(woeId: 638242, title: "Berlin", latitude: 52.516071, longitude: 13.376980),
-            Location(woeId: 2487956, title: "San Francisco", latitude: 37.77712, longitude: -122.41964)
+            Location(woeId: 929717, title: "Odesa, UA", latitude: 46.482952, longitude: 30.712481),
+            Location(woeId: 924938, title: "Kyiv, UA", latitude: 50.450100, longitude: 30.523400),
+            Location(woeId: 638242, title: "Berlin, DE", latitude: 52.520008, longitude: 13.404954),
+            Location(woeId: 44418, title: "London, GB", latitude: 51.507351, longitude: -0.127758),
+            Location(woeId: 523920, title: "Warsaw, PL", latitude: 52.229676, longitude: 21.012229)
         ]
     }
 

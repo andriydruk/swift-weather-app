@@ -4,27 +4,80 @@ on: [pull_request]
 
 jobs:
   build:
+    runs-on: macos-latest
 
-    runs-on: macOS-latest
-    
     steps:
-    - uses: actions/checkout@v1
-    - name: Install Swift 6.0.3 toolchain
-      run: curl -L -O https://download.swift.org/swift-6.0.3-release/xcode/swift-6.0.3-RELEASE/swift-6.0.3-RELEASE-osx.pkg && sudo installer -pkg swift-6.0.3-RELEASE-osx.pkg -target /
-    - name: Install NDK
-      run: $ANDROID_HOME/cmdline-tools/latest/bin/sdkmanager --install "ndk;26.2.11394342"
-    - name: Install Swift Android Toolchain
-      run: wget https://github.com/readdle/swift-android-toolchain/releases/latest/download/swift-android.zip;
-        unzip swift-android.zip;
-    - uses: actions/setup-java@v3
+    - uses: actions/checkout@v4
+
+    - name: Select Xcode 26.2
+      run: sudo xcode-select -s /Applications/Xcode_26.2.app
+
+    - name: Install Swift 6.2.1 toolchain
+      run: |
+        curl -L -O https://download.swift.org/swift-6.2.1-release/xcode/swift-6.2.1-RELEASE/swift-6.2.1-RELEASE-osx.pkg
+        sudo installer -pkg swift-6.2.1-RELEASE-osx.pkg -target /
+
+    - name: Install Swiftly shim
+      run: |
+        # The Readdle Gradle plugin invokes "swiftly run +6.2 swift build ..."
+        # Swiftly's install script does not support macOS 15 yet, so we create
+        # a shim that delegates to the Swift 6.2.1 toolchain (must match the
+        # SDK's module version exactly).
+        SWIFT_621="/Library/Developer/Toolchains/swift-6.2.1-RELEASE.xctoolchain/usr/bin"
+        mkdir -p ~/.swiftly/bin
+        cat > ~/.swiftly/bin/swiftly << SHIM
+        #!/bin/bash
+        if [ "\$1" = "run" ]; then
+            shift 2
+            exec env PATH="$SWIFT_621:\$PATH" "\$@"
+        fi
+        exec "\$@"
+        SHIM
+        chmod +x ~/.swiftly/bin/swiftly
+        echo "$HOME/.swiftly/bin" >> $GITHUB_PATH
+
+    - name: Install Readdle Swift Android SDK
+      run: |
+        swift sdk install https://github.com/readdle/swift-android-toolchain/releases/download/6.2-r1/readdle-swift-6.2.1-RELEASE_android.artifactbundle.tar.gz \
+          --checksum 2057ecd9cf71fcd9beaded08d370f4815f867983c073f2d0010796aefdf8c2f1
+        ~/Library/org.swift.swiftpm/swift-sdks/readdle-swift-6.2.1-RELEASE_android.artifactbundle/swift-android/scripts/setup-android-sdk.sh
+
+    - name: Install Swift Android Build Tools
+      run: |
+        git clone https://github.com/readdle/swift-android-buildtools.git ~/swift-android-buildtools
+        echo "$HOME/swift-android-buildtools" >> $GITHUB_PATH
+
+    - uses: actions/setup-java@v4
       with:
-        distribution: 'zulu' # See 'Supported distributions' for available options
+        distribution: 'zulu'
         java-version: '17'
-    - name: Build all variants
-      run: export ANDROID_NDK_HOME=$ANDROID_HOME/ndk/26.2.11394342;
-        export SWIFT_ANDROID_HOME=$(pwd)/swift-android;
-        export PATH=$ANDROID_NDK_HOME:$PATH;
-        export PATH=$SWIFT_ANDROID_HOME/build-tools:$PATH;
-        cd android;
-        echo "API_KEY=XXXYYYZZZ" >> local.properties;
-        ./gradlew app:buildRelease
+
+    - name: Create debug keystore
+      run: |
+        mkdir -p ~/.android
+        keytool -genkey -v \
+          -keystore ~/.android/debug.keystore \
+          -storepass android \
+          -alias androiddebugkey \
+          -keypass android \
+          -keyalg RSA \
+          -keysize 2048 \
+          -validity 10000 \
+          -dname "CN=Android Debug,O=Android,C=US"
+
+    - name: Build release APK
+      env:
+        API_KEY: ${{ secrets.API_KEY }}
+      run: |
+        cd android
+        echo "API_KEY=$API_KEY" >> local.properties
+        ./gradlew app:assembleRelease
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-apks-${{ github.run_number }}
+        path: |
+          android/app/build/outputs/apk/**/*.apk
+        if-no-files-found: error
+        retention-days: 14
