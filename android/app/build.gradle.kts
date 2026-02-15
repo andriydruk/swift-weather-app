@@ -39,6 +39,10 @@ android {
         buildConfigField("String", "WEATHER_API_KEY", "\"${openWeatherAPIKey}\"")
 
         packaging {
+            // Exclude Swift libs not in the libWeatherCoreBridge.so dependency tree
+            jniLibs.excludes += "lib/**/libFoundationXML.so"
+            jniLibs.excludes += "lib/**/libTesting.so"
+            jniLibs.excludes += "lib/**/lib_Testing_Foundation.so"
             jniLibs.excludes += "lib/**/libswift_Differentiation.so"
             jniLibs.excludes += "lib/**/libswift_Volatile.so"
             jniLibs.excludes += "lib/**/libswiftDifferentiationUnittest.so"
@@ -68,6 +72,16 @@ android {
         }
     }
 
+    splits {
+        abi {
+            isEnable = true
+            reset()
+            //noinspection ChromeOsAbiSupport
+            include("arm64-v8a", "x86_64")
+            isUniversalApk = false
+        }
+    }
+
     buildTypes {
         release {
             signingConfig = signingConfigs.getByName("ciRelease")
@@ -75,20 +89,11 @@ android {
             isJniDebuggable = false
             isMinifyEnabled = true
             isShrinkResources = true
-            ndk {
-                // Optimize for fast build times by not building all ABIs for debuggable variants.
-                //noinspection ChromeOsAbiSupport
-                abiFilters += listOf("arm64-v8a")
-            }
+            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
         debug {
             isDebuggable = true
             isJniDebuggable = true
-            ndk {
-                // Optimize for fast build times by not building all ABIs for debuggable variants.
-                //noinspection ChromeOsAbiSupport
-                abiFilters += listOf("arm64-v8a")
-            }
         }
     }
 
