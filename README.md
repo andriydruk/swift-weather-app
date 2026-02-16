@@ -37,7 +37,7 @@ Architecture based on reusing as much as possible code written in Swift. The Swi
 
 | Platform | UI Framework | Min Version | Layout |
 |---|---|---|---|
-| Android | Jetpack Compose | API 24 | Phone navigation |
+| Android | Jetpack Compose | API 29 | Phone navigation |
 | iPhone | SwiftUI | iOS 16.0 | NavigationStack with pager |
 | iPad | SwiftUI | iPadOS 16.0 | Master-detail (NavigationSplitView) |
 | macOS | SwiftUI | macOS 13.0 | Master-detail (NavigationSplitView) |
